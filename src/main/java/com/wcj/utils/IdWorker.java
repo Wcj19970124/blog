@@ -76,7 +76,7 @@ public final class IdWorker {
      */
     private final long DATA_CENTER_ID;
 
-    public IdWorker(){
+    public IdWorker() {
         this.DATA_CENTER_ID = getDatacenterId(MAX_DATA_CENTER_ID);
         this.workerId = getMaxWorkerId(DATA_CENTER_ID, MAX_WORKER_ID);
     }
@@ -91,6 +91,7 @@ public final class IdWorker {
         this.workerId = workerId;
         this.DATA_CENTER_ID = datacenterId;
     }
+
     /**
      * 获取下一个ID
      *
@@ -142,14 +143,14 @@ public final class IdWorker {
         mpid.append(dataCenterId);
         String name = ManagementFactory.getRuntimeMXBean().getName();
         if (!name.isEmpty()) {
-         /*
-          * GET jvmPid
-          */
+            /*
+             * GET jvmPid
+             */
             mpid.append(name.split("@")[0]);
         }
-      /*
-       * MAC + PID 的 hashcode 获取16个低位
-       */
+        /*
+         * MAC + PID 的 hashcode 获取16个低位
+         */
         return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
     }
 

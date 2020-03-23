@@ -1,11 +1,14 @@
 package com.wcj.enums;
 
+import lombok.Getter;
+
 /**
  * 状态码枚举，所有的状态码都在这里定义
  * @author wcj
  * @Date 2020/3/23 13:11
  * @Version 1.0
  */
+@Getter
 public enum StateEnum {
 
     /**
@@ -24,7 +27,13 @@ public enum StateEnum {
      * 性别状态码
      */
     SEX_MAN(1, "男"),
-    SEX_WOMAN(2, "女");
+    SEX_WOMAN(2, "女"),
+
+    /**
+     * 请求状态码
+     */
+    STATUS_SUCCESS(1,"正常"),
+    STATUS_ERROR(0,"异常");
 
     /**
      * 状态码
