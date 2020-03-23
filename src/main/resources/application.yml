@@ -1,0 +1,28 @@
+#服务器端口配置
+server:
+  port: 8090
+
+#数据源配置
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://121.199.34.159:3306/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+      username: root
+      password: 520wcj
+      #初始化连接数
+      initialSize: 5
+      #最小
+      minIdle: 5
+      #最大连接数
+      maxActive: 20
+      #最大等待数
+      maxWait: 10000
+      testOnBorrow: true
+      testOnReturn: false
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.wcj.pojo
