@@ -27,4 +27,34 @@ public class AdminServiceImpl implements AdminService {
          return adminMapper.getAdminByUserName(userName);
     }
 
+    /**
+     * 获取用户信息
+     * @return
+     */
+    @Override
+    public Admin getInfo() {
+        return adminMapper.getInfo();
+    }
+
+    /**
+     * 修改管理员信息
+     * @param admin
+     */
+    @Override
+    public void updateAdmin(Admin admin) {
+        adminMapper.updateAdmin(admin);
+    }
+
+    /**
+     * 修改管理员密码
+     * @param admin
+     */
+    @Override
+    public void updatePwd(Admin admin) {
+        //先查再改
+        Admin oldAdmin = adminMapper.getInfo();
+        oldAdmin.setPassword(admin.getPassword());
+        adminMapper.updateAdmin(oldAdmin);
+    }
+
 }

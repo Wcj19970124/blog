@@ -43,6 +43,21 @@ shiro:
 #  login-url: /*/login
   hash-algorithm-name: md5
   hash-iterations: 2
-  anon-urls: /*/login
+  anon-urls:
+    - /*/login
+    - /swagger-resources
+    - /v2/**
+    - /swagger-ui.html
+    - /webjars/**
 #  logout-url: /logout
-  authc-urls: /**
+  authc-urls:
+    - /**
+
+#配置swagger
+swagger:
+  enabled: true
+  base-package: com.wcj
+  contact:
+    name: wcj
+    email: 570857634@qq.com
+    url: www.520wcj.cn

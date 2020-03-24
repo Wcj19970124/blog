@@ -16,9 +16,38 @@
     <sql id="Base_Column_List">
         id, name, header, signature, comment, username, password
     </sql>
+    <!-- 修改管理员信息 -->
+    <update id="updateAdmin" parameterType="com.wcj.pojo.Admin">
+        update bl_admin
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="header!=null and header!=''">
+                header=#{header},
+            </if>
+            <if test="signature!=null and signature!=''">
+                signature=#{signature},
+            </if>
+            <if test="comment!=null and comment!=''">
+                comment=#{comment},
+            </if>
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
     <!-- 根据用户名查询用户信息 -->
     <select id="getAdminByUserName" resultMap="BaseResultMap">
         select name,signature,username,password from bl_admin where username=#{userName}
+    </select>
+    <!-- 查询用户信息 -->
+    <select id="getInfo" resultMap="BaseResultMap">
+        select id, name, header, signature, comment, username from bl_admin
     </select>
 
 </mapper>

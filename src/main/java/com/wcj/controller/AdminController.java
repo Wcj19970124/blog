@@ -7,6 +7,8 @@ import com.wcj.service.AdminService;
 import com.wcj.utils.Result;
 import com.wcj.utils.ShiroUtils;
 import com.wcj.utils.StringUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -19,10 +21,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * admin前端控制器
  * @author wcj
  * @Date 2020/3/24 9:35
  * @Version 1.0
  */
+@Api(tags = "管理员")
 @RestController
 @RequestMapping("admin")
 public class AdminController {
@@ -37,6 +41,7 @@ public class AdminController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation(value = "登录")
     public Result<Object> login(@RequestBody Admin admin) {
         //参数检验
         if (admin == null || StringUtils.isBlank(admin.getUsername()) || StringUtils.isBlank(admin.getPassword())) {
@@ -63,9 +68,45 @@ public class AdminController {
      * @return
      */
     @GetMapping("/info")
+    @ApiOperation(value = "获取登录用户信息")
     public Result<Admin> getAdminInfo() {
         Admin loginAdmin = ShiroUtils.getLoginAdmin();
         loginAdmin.setPassword("");
         return new Result<>(loginAdmin);
+    }
+
+    /**
+     * 获取管理员信息
+     * @return
+     */
+    @GetMapping("/getInfo")
+    @ApiOperation("获取管理员信息")
+    public Result<Admin> getInfo(){
+        Admin admin = adminService.getInfo();
+        return new Result<>(admin);
+    }
+
+    /**
+     * 修改管理员信息
+     * @param admin
+     * @return
+     */
+    @PutMapping("/update")
+    @ApiOperation("修改管理员信息")
+    public Result<Object> updateAdmin(@RequestBody Admin admin){
+        adminService.updateAdmin(admin);
+        return new Result<>("修改成功!");
+    }
+
+    /**
+     * 修改管理员密码
+     * @param admin
+     * @return
+     */
+    @PutMapping("/updatePwd")
+    @ApiOperation("修改管理员密码")
+    public Result<Object> updatePwd(@RequestBody Admin admin){
+        adminService.updatePwd(admin);
+        return new Result<>("修改成功!");
     }
 }

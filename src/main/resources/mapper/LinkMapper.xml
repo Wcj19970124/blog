@@ -22,5 +22,33 @@
         version,
         deleted
     </sql>
+    <!-- 添加友情链接 -->
+    <insert id="addLink" parameterType="com.wcj.pojo.Link">
+        insert into bl_link(link_name,link_url) values(#{linkName},#{linkUrl})
+    </insert>
+    <!-- 修改友情链接 -->
+    <update id="updateLink" parameterType="com.wcj.pojo.Link">
+        update bl_link set
+        version=version+1
+        <if test="linkName!=null and linkName!=''">
+            ,link_name=#{linkName}
+        </if>
+        <if test="linkUrl!=null and linkUrl!=''">
+            ,link_url=#{linkUrl}
+        </if>
+        where link_id=#{linkId} and version=#{version}
+    </update>
+    <!-- 根据id删除友情链接 -->
+    <delete id="deleteById" parameterType="com.wcj.pojo.Link">
+        update bl_link set deleted=1 where link_id=#{id}
+    </delete>
+    <!-- 根据id查询友情链接 -->
+    <select id="getById" resultMap="BaseResultMap">
+        select link_id,link_name,link_url,version from bl_link where link_id=#{id} and deleted=0
+    </select>
+    <!-- 查询友情链接列表 -->
+    <select id="getLinkList" resultMap="BaseResultMap">
+        select link_id,link_name,link_url,created_time,update_time,version from bl_link
+    </select>
 
 </mapper>

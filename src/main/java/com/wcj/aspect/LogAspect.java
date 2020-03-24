@@ -76,10 +76,9 @@ public class LogAspect {
     @AfterReturning(returning = "ret", pointcut = "logPointCut()")
     public void doAfterReturning(Object ret) {
         String result = JSON.toJSONString(ret);
-        log.error("返回值", result);
+        log.info("返回值:{}", JSON.toJSONString(ret));
         Log logger = ThreadLocalContext.get().getLogger();
         logger.setLogResult(result);
-        logger.setLogStatus(StateEnum.STATUS_SUCCESS.getCode());
         logService.save(logger);
     }
 
@@ -123,5 +122,6 @@ public class LogAspect {
         logger.setLogMethod(request.getMethod());
         logger.setLogIp(ip);
         logger.setLogParams(params);
+        logger.setLogStatus(StateEnum.STATUS_SUCCESS.getCode());
     }
 }
