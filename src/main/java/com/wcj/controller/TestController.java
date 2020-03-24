@@ -2,6 +2,7 @@ package com.wcj.controller;
 
 import com.wcj.exception.BlogException;
 import com.wcj.utils.Result;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
 
-    @RequestMapping("/testException/{id}")
+    @GetMapping("/testException/{id}")
     public Result<Object> test(@PathVariable Integer id){
         if (id == 1) {
             return new Result<>();

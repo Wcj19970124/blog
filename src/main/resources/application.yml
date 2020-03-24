@@ -10,19 +10,39 @@ spring:
       url: jdbc:mysql://121.199.34.159:3306/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
       username: root
       password: 520wcj
-      #初始化连接数
+      #初始化连接大小
       initialSize: 5
-      #最小
+      #最小空闲连接数
       minIdle: 5
       #最大连接数
       maxActive: 20
-      #最大等待数
+      #最大等待时间，单位：毫秒
       maxWait: 10000
+      #从连接池中取出连接时进行检测
       testOnBorrow: true
+      #归还到连接池中前进行检测
       testOnReturn: false
+      #在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位
       timeBetweenEvictionRunsMillis: 60000
+      #连接在池中保持空闲而不被空闲连接回收器线程，(如果有)回收的最小时间值，单位毫秒
       minEvictableIdleTimeMillis: 300000
+      #数据源监控
+      stat-view-servlet:
+        login-password: 520wcj
+        login-username: root
+        url-pattern: /druid/*
+        enabled: true
+
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.wcj.pojo
+
+#shiro配置
+shiro:
+#  login-url: /*/login
+  hash-algorithm-name: md5
+  hash-iterations: 2
+  anon-urls: /*/login
+#  logout-url: /logout
+  authc-urls: /**

@@ -12,6 +12,7 @@ public interface LogService {
     /**
      * 保存日志信息
      * @param logger
+     * @return
      */
     void save(Log logger);
 }

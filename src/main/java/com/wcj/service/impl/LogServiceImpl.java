@@ -20,6 +20,7 @@ public class LogServiceImpl implements LogService {
     /**
      * 保存日志信息
      * @param logger
+     * @return
      */
     @Override
     public void save(Log logger) {

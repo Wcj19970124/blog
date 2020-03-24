@@ -20,7 +20,6 @@ public interface LogMapper {
      * 保存日志信息
      * @param logger
      */
-    @Insert("insert into bl_log(log_url,log_params,log_status,log_message,log_method,log_time,log_result,log_ip)" +
-            " values(#{logUrl},#{logParams},#{logStatus},#{logMessage},#{logMethod},#{logTime},#{logResult},#{logIp})")
+    @Insert("insert into bl_log(log_url,log_params,log_status,log_message,log_method,log_time,log_result,log_ip) values(#{logUrl},#{logParams},#{logStatus},#{logMessage},#{logMethod},#{logTime},#{logResult},#{logIp})")
     void save(Log logger);
 }

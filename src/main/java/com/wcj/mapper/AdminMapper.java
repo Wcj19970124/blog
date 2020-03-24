@@ -1,5 +1,7 @@
 package com.wcj.mapper;
 
+import com.wcj.pojo.Admin;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,4 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 public interface AdminMapper {
 
+    /**
+     * 根据用户名查询管理员信息
+     * @param userName
+     * @return
+     */
+    @Select("select name,signature,username,password from bl_admin where username=#{username}")
+    Admin getAdminByUserName(String userName);
 }
