@@ -16,5 +16,9 @@
     <sql id="Base_Column_List">
         id, name, header, signature, comment, username, password
     </sql>
+    <!-- 根据用户名查询用户信息 -->
+    <select id="getAdminByUserName" resultMap="BaseResultMap">
+        select name,signature,username,password from bl_admin where username=#{userName}
+    </select>
 
 </mapper>

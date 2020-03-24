@@ -19,6 +19,5 @@ public interface AdminMapper {
      * @param userName
      * @return
      */
-    @Select("select name,signature,username,password from bl_admin where username=#{username}")
     Admin getAdminByUserName(String userName);
 }

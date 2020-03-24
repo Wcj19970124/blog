@@ -14,5 +14,45 @@
     <sql id="Base_Column_List">
         type_id, type_name, type_blog_count, enable, deleted
     </sql>
+    <!-- 添加分类 -->
+    <insert id="addType" parameterType="com.wcj.pojo.Type">
+        insert into bl_type(type_name) values(#{typeName})
+    </insert>
+    <!-- 根据id修改分类 -->
+    <update id="updateType" parameterType="com.wcj.pojo.Type">
+        update bl_type
+        <set>
+            <if test="typeName!=null and typeName!=''">
+                type_name=#{typeName},
+            </if>
+            <if test="typeBlogCount!=null and typeBlogCount!=''">
+                type_blog_count=#{typeBlogCount},
+            </if>
+            <if test="enable!=null">
+                enable=#{enable},
+            </if>
+        </set>
+        where type_id=#{typeId}
+    </update>
+    <!-- 根据id删除分类 -->
+    <delete id="deleteType" parameterType="com.wcj.pojo.Type">
+        update bl_type set deleted=1 where type_id = #{id}
+    </delete>
+    <!-- 根据用户名查询用户 -->
+    <select id="getTypeByTypeName" resultMap="BaseResultMap">
+        select type_id, type_name, type_blog_count from bl_type where type_name=#{typeName} and deleted=0
+    </select>
+    <!-- 后台查询分类列表 -->
+    <select id="getTypeList" resultMap="BaseResultMap">
+        select * from bl_type where deleted=0
+    </select>
+    <!-- 前台查询分类列表 -->
+    <select id="getTypeLists" resultMap="BaseResultMap">
+        select * from bl_type where deleted=0 and enable=1
+    </select>
+    <!-- 根据id查询分类 -->
+    <select id="getType" resultType="com.wcj.pojo.Type">
+        select * from bl_type where type_id=#{id}
+    </select>
 
 </mapper>
