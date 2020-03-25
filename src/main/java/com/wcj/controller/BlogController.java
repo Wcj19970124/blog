@@ -81,7 +81,7 @@ public class BlogController {
         String sortColumn = page.getSortColumn();
         if (StringUtils.isNotBlank(sortColumn)) {
             String[] sortColumns = {"blog_goods", "blog_read", "blog_collection",
-                    "blog_type", "blog_comment", "create_time", "update_time"};
+                    "blog_type", "blog_comment", "created_time", "update_time"};
             List<String> sortColumnList = Arrays.asList(sortColumns);
             if (!sortColumnList.contains(sortColumn.toLowerCase())) {
                 return new Result<>(ResultEnum.PARAMS_ERROR.getCode(), "排序参数不合法!");

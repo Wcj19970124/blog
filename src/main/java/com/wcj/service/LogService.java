@@ -1,6 +1,9 @@
 package com.wcj.service;
 
 import com.wcj.pojo.Log;
+import com.wcj.utils.Page;
+
+import java.util.List;
 
 /**
  * @author wcj
@@ -15,4 +18,26 @@ public interface LogService {
      * @return
      */
     void save(Log logger);
+
+    /**
+     * 分页查询日志
+     *
+     * @param page
+     * @return
+     */
+    Page<Log> getLogList(Page<Log> page);
+
+    /**
+     * 根据id删除日志
+     *
+     * @param id
+     */
+    void deleteById(Integer id);
+
+    /**
+     * 根据id集合删除日志
+     *
+     * @param idList
+     */
+    void deleteByIdList(List<Integer> idList);
 }

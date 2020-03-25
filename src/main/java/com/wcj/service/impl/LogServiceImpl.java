@@ -3,8 +3,13 @@ package com.wcj.service.impl;
 import com.wcj.mapper.LogMapper;
 import com.wcj.pojo.Log;
 import com.wcj.service.LogService;
+import com.wcj.utils.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author wcj
@@ -12,6 +17,7 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  */
 @Service
+@Slf4j
 public class LogServiceImpl implements LogService {
 
     @Autowired
@@ -25,5 +31,43 @@ public class LogServiceImpl implements LogService {
     @Override
     public void save(Log logger) {
         logMapper.save(logger);
+    }
+
+    /**
+     * 分页查询日志
+     *
+     * @param page
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Page<Log> getLogList(Page<Log> page) {
+        //查询日志数据
+        List<Log> logList = logMapper.getLogList(page);
+        page.setList(logList);
+        //查询日志总条数
+        int totalCount = logMapper.getCountByPage(page);
+        page.setTotalCount(totalCount);
+        return page;
+    }
+
+    /**
+     * 根据id删除日志
+     *
+     * @param id
+     */
+    @Override
+    public void deleteById(Integer id) {
+        logMapper.deleteById(id);
+    }
+
+    /**
+     * 根据id集合删除日志
+     *
+     * @param idList
+     */
+    @Override
+    public void deleteByIdList(List<Integer> idList) {
+        logMapper.deleteByIdList(idList);
     }
 }

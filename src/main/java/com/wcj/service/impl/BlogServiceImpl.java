@@ -8,6 +8,7 @@ import com.wcj.service.BlogService;
 import com.wcj.utils.IdWorker;
 import com.wcj.utils.Page;
 import com.wcj.vo.BlogVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Service
+@Slf4j
 public class BlogServiceImpl implements BlogService {
 
     @Autowired
@@ -35,16 +37,18 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 添加博客
+     *
      * @param blog
      */
     @Override
     public void addBlog(Blog blog) {
-        blog.setBlogId(idWorker.nextId()+"");
+        blog.setBlogId(idWorker.nextId() + "");
         blogMapper.addBlog(blog);
     }
 
     /**
      * 修改博客
+     *
      * @param blog
      */
     @Override
@@ -54,6 +58,7 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 根据id查询博客
+     *
      * @param id
      * @return
      */
@@ -64,6 +69,7 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 删除博客
+     *
      * @param id
      */
     @Override
@@ -73,6 +79,7 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 分页查询博客列表
+     *
      * @param page
      * @return
      */
@@ -90,6 +97,7 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 按照id阅读博客
+     *
      * @param id
      * @return
      */
@@ -99,11 +107,11 @@ public class BlogServiceImpl implements BlogService {
         //先查再修改阅读数
         Blog blog = blogMapper.getBlog(id);
         //修改阅读数
-        blog.setBlogRead(blog.getBlogRead()+1);
+        blog.setBlogRead(blog.getBlogRead() + 1);
         blogMapper.updateBlog(blog);
         //将blog转换为BlogVo
         BlogVo blogVo = new BlogVo();
-        BeanUtils.copyProperties(blog,blogVo);
+        BeanUtils.copyProperties(blog, blogVo);
         //查询分类
         Type type = typeMapper.getType(blog.getBlogType());
         blogVo.setTypeName(type.getTypeName());

@@ -3,6 +3,7 @@ package com.wcj.service.impl;
 import com.wcj.mapper.AdminMapper;
 import com.wcj.pojo.Admin;
 import com.wcj.service.AdminService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  */
 @Service
+@Slf4j
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
@@ -19,16 +21,18 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 根据用户名查询管理员信息
+     *
      * @param userName
      * @return
      */
     @Override
     public Admin getAdminByUserName(String userName) {
-         return adminMapper.getAdminByUserName(userName);
+        return adminMapper.getAdminByUserName(userName);
     }
 
     /**
      * 获取用户信息
+     *
      * @return
      */
     @Override
@@ -38,6 +42,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 修改管理员信息
+     *
      * @param admin
      */
     @Override
@@ -47,6 +52,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 修改管理员密码
+     *
      * @param admin
      */
     @Override

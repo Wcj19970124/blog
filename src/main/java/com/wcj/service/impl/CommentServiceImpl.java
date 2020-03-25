@@ -2,6 +2,7 @@ package com.wcj.service.impl;
 
 import com.wcj.mapper.CommentMapper;
 import com.wcj.service.CommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  */
 @Service
+@Slf4j
 public class CommentServiceImpl implements CommentService {
 
     @Autowired

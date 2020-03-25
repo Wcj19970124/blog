@@ -10,6 +10,7 @@
         <result column="created_time" property="createdTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="version" property="version"/>
+        <result column="enable" property="enable"/>
         <result column="deleted" property="deleted"/>
     </resultMap>
 
@@ -22,7 +23,94 @@
         created_time,
         update_time,
         version,
+        enable,
         deleted
     </sql>
+    <!-- 添加关于我的信息 -->
+    <insert id="addAbout" parameterType="com.wcj.pojo.About">
+        insert into bl_about(about_title,about_content) values(#{aboutTitle},#{aboutContent})
+    </insert>
+    <!-- 修改关于我的信息 -->
+    <update id="updateAbout" parameterType="com.wcj.pojo.About">
+        update bl_about set
+        version=version+1
+        <if test="aboutTitle!=null and aboutTitle!=''">
+            ,about_title=#{aboutTitle}
+        </if>
+        <if test="aboutContent!=null and aboutContent!=''">
+            ,about_content=#{aboutContent}
+        </if>
+        <if test="aboutRead!=null and aboutRead!=''">
+            ,about_read=#{aboutRead}
+        </if>
+        where about_id=#{aboutId} and version=#{version}
+    </update>
+    <!-- 启用关于我的信息 -->
+    <update id="updateEnable" parameterType="com.wcj.pojo.About">
+        update bl_about set
+        version=version+1,enable=#{enable}
+        where about_id=#{aboutId} and version=#{version}
+    </update>
+    <!-- 根据id删除关于我的信息 -->
+    <delete id="deleteAbout" parameterType="com.wcj.pojo.About">
+        update bl_about
+        set deleted=1
+        where about_id=#{id}
+    </delete>
+    <!-- 根据id查询关于我的信息 -->
+    <select id="getAbout" resultMap="BaseResultMap">
+        select about_id,
+        about_title,
+        about_content,
+        about_read,
+        created_time,
+        update_time,
+        version,
+        enable
+        from bl_about
+        where about_id=#{aboutId}
+    </select>
+    <!-- 阅读关于我的 -->
+    <select id="readAbout" resultMap="BaseResultMap">
+        select about_id,
+        about_title,
+        about_content,
+        about_read,
+        created_time,
+        update_time,
+        version
+        from bl_about
+        where deleted=0 and enable=1
+    </select>
+    <!-- 分页查询数据总数 -->
+    <select id="getCountByPage" resultType="java.lang.Integer" parameterType="com.wcj.utils.Page">
+        select
+        count(*)
+        from bl_about
+        where deleted=0
+        <if test="params.aboutTitle!=null and params.aboutTitle!=''">
+            ,about_title like CONCAT('%',#{params.aboutTitle},'%')
+        </if>
+    </select>
+    <!-- 分页查询数据列表 -->
+    <select id="getAboutList" resultMap="BaseResultMap" parameterType="com.wcj.utils.Page">
+        select about_id,
+        about_title,
+        about_content,
+        about_read,
+        created_time,
+        update_time,
+        version,
+        enable
+        from bl_about
+        where deleted=0
+        <if test="params.aboutTitle!=null and params.aboutTitle!=''">
+            ,about_title like CONCAT('%',#{params.aboutTitle},'%')
+        </if>
+        <if test="sortColumn!=null and sortColumn!=''">
+            order by ${sortColumn} ${sortMethod}
+        </if>
+        limit #{index},#{pageSize}
+    </select>
 
 </mapper>

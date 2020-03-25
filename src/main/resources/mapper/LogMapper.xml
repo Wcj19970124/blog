@@ -19,5 +19,68 @@
     <sql id="Base_Column_List">
         log_id, log_url, log_params, log_status, log_message, log_method, log_time, log_result, log_ip, created_time
     </sql>
+    <!-- 根据id删除日志 -->
+    <delete id="deleteById" parameterType="com.wcj.pojo.Log">
+        delete from bl_log where log_id=#{id}
+    </delete>
+    <!-- 根据id集合删除日志 -->
+    <delete id="deleteByIdList">
+        delete from bl_log
+        where log_id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!-- 分页查询日志列表 -->
+    <select id="getLogList" resultMap="BaseResultMap" parameterType="com.wcj.utils.Page">
+         select log_id, log_url, log_params, log_status,
+         log_message, log_method, log_time, log_result,
+         log_ip, created_time
+         from bl_log
+         <where>
+             <if test="params.logUrl!=null and params.logUrl!=''">
+                 log_url=#{params.logUrl}
+             </if>
+             <if test="params.logStatus!=null">
+                 and log_status=#{params.logStatus}
+             </if>
+             <if test="params.logMethod!=null and params.logMethod!=''">
+                 and log_method=#{params.logMethod}
+             </if>
+             <if test="params.logIp!=null and params.logIp!=''">
+                 and log_ip=#{params.logIp}
+             </if>
+             <if test="params.createdTime!=null and params.createdTime!=''">
+                 and created_time=#{params.createdTime}
+             </if>
+         </where>
+    </select>
+    <!-- 分页查询日志总条数 -->
+    <select id="getCountByPage" resultType="java.lang.Integer" parameterType="com.wcj.utils.Page">
+        select
+        count(*)
+        from bl_log
+        <where>
+            <if test="params.logUrl!=null and params.logUrl!=''">
+                log_url=#{params.logUrl}
+            </if>
+            <if test="params.logStatus!=null">
+                and log_status=#{params.logStatus}
+            </if>
+            <if test="params.logMethod!=null and params.logMethod!=''">
+                and log_method=#{params.logMethod}
+            </if>
+            <if test="params.logIp!=null and params.logIp!=''">
+                and log_ip=#{params.logIp}
+            </if>
+            <if test="params.createdTime!=null and params.createdTime!=''">
+                and created_time=#{params.createdTime}
+            </if>
+            <if test="sortColumn!=null and sortColumn!=''">
+                order by ${sortColumn} ${sortColumn}
+            </if>
+        </where>
+        limit #{index},#{pageSize}
+    </select>
 
 </mapper>

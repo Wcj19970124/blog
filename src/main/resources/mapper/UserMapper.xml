@@ -21,5 +21,113 @@
     <sql id="Base_Column_List">
         user_id, username, password, name, sex, header, nickname, user_email, created_time, update_time, version, deleted
     </sql>
+    <!-- 添加用户 -->
+    <insert id="addUser" parameterType="com.wcj.pojo.User">
+        insert into bl_user(username, password,
+         name, sex, header, nickname, user_email)
+         values(#{username},#{password},
+         #{name},#{sex},#{header},#{nickname},#{userEmail})
+    </insert>
+    <!-- 修改用户 -->
+    <update id="updateUser" parameterType="com.wcj.pojo.User">
+        update bl_user set
+        version=version+1,
+        <if test="username!=null and username!=''">
+            username=#{username},
+        </if>
+        <if test="password!=null and password!=''">
+            password=#{password},
+        </if>
+        <if test="name!=null and name!=''">
+            name=#{name},
+        </if>
+        <if test="sex!=null ">
+            sex=#{sex},
+        </if>
+        <if test="header!=null and header!=''">
+            header=#{header},
+        </if>
+        <if test="nickname!=null and nickname!=''">
+            nickname=#{nickname},
+        </if>
+        <if test="userEmail!=null and userEmail!=''">
+            user_email=#{userEmail}
+        </if>
+        where user_id=#{userId} and version=#{version}
+    </update>
+    <!-- 根据id删除用户 -->
+    <delete id="deleteUser" parameterType="com.wcj.pojo.User">
+        update bl_user set
+        deleted=1
+        where user_id=#{id}
+    </delete>
+    <!-- 根据id查询用户 -->
+    <select id="getUser" resultMap="BaseResultMap">
+        select  user_id, username,name,
+        sex, header, nickname, user_email,version
+        from bl_user
+        where user_id = #{id} and deleted=0
+    </select>
+    <!-- 分页查询用户列表 -->
+    <select id="getUserList" resultMap="BaseResultMap" parameterType="com.wcj.utils.Page">
+        select user_id, username, password,
+        name, sex, header, nickname, user_email,
+        created_time, update_time, version
+        from bl_user
+        where deleted=0
+        <if test="params.username!=null and params.usename!=''">
+            and username like CONCAT('%',#{params.username},'%')
+        </if>
+        <if test="params.name!=null and params.name!=''">
+            and name like CONCAT('%',#{params.name},'%')
+        </if>
+        <if test="params.sex!=null ">
+            and sex = #{params.sex}
+        </if>
+        <if test="params.nickname!=null and params.nickname!=''">
+            and nickname like CONCAT('%',#{params.nickname},'%')
+        </if>
+        <if test="params.userEmail!=null and params.userEmail!=''">
+            and user_name like CONCAT('%',#{params.userEmail},'%')
+        </if>
+        <if test="params.createdTime!=null and params.createdTime!=''">
+            and created_time like CONCAT('%',#{params.createdTime},'%')
+        </if>
+        <if test="params.updateTime!=null and params.updateTime!=''">
+           and update_time like CONCAT('%',#{params.updateTime},'%')
+        </if>
+        <if test="sortColumn!=null and sortColumn!=''">
+           and order by ${sortColumn} ${sortMethod}
+        </if>
+        limit #{index},#{pageSize}
+    </select>
+    <!-- 分页查询数据总条数 -->
+    <select id="getCountByPage" resultType="java.lang.Integer" parameterType="com.wcj.utils.Page">
+        select
+        count(*)
+        from bl_user
+        where deleted=0
+        <if test="params.username!=null and params.usename!=''">
+            and username like CONCAT('%',#{params.username},'%')
+        </if>
+        <if test="params.name!=null and params.name!=''">
+            and name like CONCAT('%',#{params.name},'%')
+        </if>
+        <if test="params.sex!=null ">
+            and sex = #{params.sex}
+        </if>
+        <if test="params.nickname!=null and params.nickname!=''">
+            and nickname like CONCAT('%',#{params.nickname},'%')
+        </if>
+        <if test="params.userEmail!=null and params.userEmail!=''">
+            and user_name like CONCAT('%',#{params.userEmail},'%')
+        </if>
+        <if test="params.createdTime!=null and params.createdTime!=''">
+            and created_time like CONCAT('%',#{params.createdTime},'%')
+        </if>
+        <if test="params.updateTime!=null and params.updateTime!=''">
+            and update_time like CONCAT('%',#{params.updateTime},'%')
+        </if>
+    </select>
 
 </mapper>
