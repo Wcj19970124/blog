@@ -51,8 +51,8 @@
         select * from bl_type where deleted=0 and enable=1
     </select>
     <!-- 根据id查询分类 -->
-    <select id="getType" resultType="com.wcj.pojo.Type">
-        select * from bl_type where type_id=#{id}
+    <select id="getType" resultMap="BaseResultMap">
+        select * from bl_type where type_id=#{id} and deleted=0
     </select>
 
 </mapper>

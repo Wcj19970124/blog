@@ -53,6 +53,11 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
+    public Result(Integer code,String msg){
+        this.code = code;
+        this.msg = msg;
+    }
+
     public Result(Integer code, String msg, T data) {
         this.code = code;
         this.msg = msg;

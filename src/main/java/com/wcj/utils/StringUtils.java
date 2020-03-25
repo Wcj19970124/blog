@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
  */
 public final class StringUtils extends org.apache.commons.lang3.StringUtils {
 
+    public static final String CH = "_";
+
     private static final String LOCAL_HOST_IP = "127.0.0.1";
 
     /**
@@ -36,9 +38,9 @@ public final class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String upperTable(String str) {
         StringBuilder result = new StringBuilder();
-        String[] a = str.split("_");
+        String[] a = str.split(CH);
         for (String s : a) {
-            if (!str.contains("_")) {
+            if (!str.contains(CH)) {
                 result.append(s);
                 continue;
             }
@@ -58,10 +60,10 @@ public final class StringUtils extends org.apache.commons.lang3.StringUtils {
     public static String upperCharToUnderLine(String param) {
         StringBuilder sb = new StringBuilder(param);
         int temp = 0;
-        if (!param.contains("_")) {
+        if (!param.contains(CH)) {
             for (int i = 0; i < param.length(); i++) {
                 if (Character.isUpperCase(param.charAt(i))) {
-                    sb.insert(i + temp, "_");
+                    sb.insert(i + temp, CH);
                     temp += 1;
                 }
             }
