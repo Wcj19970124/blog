@@ -103,8 +103,8 @@ public class ShiroConfig {
             }
         }
         //设置登出路径
-        if (loginUrl != null) {
-            filterChainDefinitionMap.put(loginUrl, "logout");
+        if (logoutUrl != null) {
+            filterChainDefinitionMap.put(logoutUrl, "logout");
         }
         //设置拦截路径
         if (authcUrls != null && authcUrls.length > 0) {
