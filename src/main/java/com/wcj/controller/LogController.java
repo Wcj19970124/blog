@@ -8,9 +8,11 @@ import com.wcj.utils.Result;
 import com.wcj.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class LogController {
     public Result<Page<Log>> getLogList(@RequestBody Page<Log> page) {
         String sortColumn = page.getSortColumn();
         if (StringUtils.isNotBlank(sortColumn)) {
-            String[] sortColumns = {"log_url", "log_status", "log_method", "log_ip", "created_time"};
+            String[] sortColumns = {"log_url", "log_status", "log_method", "log_time", "created_time"};
             List<String> sortColumnList = Arrays.asList(sortColumns);
             if (!sortColumnList.contains(sortColumn)) {
                 return new Result<>(ResultEnum.PARAMS_ERROR.getCode(), "查询参数不合法!");
@@ -72,5 +74,18 @@ public class LogController {
     public Result<Object> deleteByIdList(@RequestBody List<Integer> idList) {
         logService.deleteByIdList(idList);
         return new Result<>("删除成功!");
+    }
+
+    /**
+     * 日志导出
+     */
+    @PostMapping("/export")
+    @ApiOperation("导出日志")
+    public void exportLog(HttpServletResponse response) throws Exception{
+        Workbook workbook = logService.exportLog();
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename=" + "日志");
+        response.flushBuffer();
+        workbook.write(response.getOutputStream());
     }
 }

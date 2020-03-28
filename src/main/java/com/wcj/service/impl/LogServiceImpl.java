@@ -1,10 +1,13 @@
 package com.wcj.service.impl;
 
+import com.wcj.excel.entity.ExportParams;
+import com.wcj.excel.handler.ExcelExportHandler;
 import com.wcj.mapper.LogMapper;
 import com.wcj.pojo.Log;
 import com.wcj.service.LogService;
 import com.wcj.utils.Page;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,5 +72,16 @@ public class LogServiceImpl implements LogService {
     @Override
     public void deleteByIdList(List<Integer> idList) {
         logMapper.deleteByIdList(idList);
+    }
+
+    /**
+     * 导出全部的日志到Excel
+     * @return
+     */
+    @Override
+    public Workbook exportLog() {
+        //获取所有的日志信息
+        List<Log> logList = logMapper.getAll();
+        return new ExcelExportHandler().createSheet(new ExportParams("测试导出", "最新日志"), Log.class, logList);
     }
 }

@@ -51,4 +51,10 @@ public interface LogMapper {
      * @param idList
      */
     void deleteByIdList(List<Integer> idList);
+
+    /**
+     * 导出到Excel，查询所有的日志信息
+     * @return
+     */
+    List<Log> getAll();
 }

@@ -2,6 +2,7 @@ package com.wcj.service;
 
 import com.wcj.pojo.Log;
 import com.wcj.utils.Page;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.List;
 
@@ -40,4 +41,10 @@ public interface LogService {
      * @param idList
      */
     void deleteByIdList(List<Integer> idList);
+
+    /**
+     * 导出全部的日志到Excel
+     * @return
+     */
+    Workbook exportLog();
 }
