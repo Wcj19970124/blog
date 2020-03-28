@@ -77,7 +77,7 @@ public class UserController {
     public Result<Page<User>> getUserList(@RequestBody Page<User> page) {
         String sortColumn = page.getSortColumn();
         if (StringUtils.isNotBlank(sortColumn)) {
-            String[] sortColumns = {"username", "name", "sex", "nickname", "user_email", "created_time", "update_time"};
+            String[] sortColumns = {  "sex", "created_time", "update_time"};
             List<String> sortColumnList = Arrays.asList(sortColumns);
             if (!sortColumnList.contains(sortColumn)) {
                 return new Result<>(ResultEnum.PARAMS_ERROR.getCode(), "查询参数不合法!");
@@ -98,5 +98,17 @@ public class UserController {
     public Result<Object> deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
         return new Result<>("删除成功!");
+    }
+
+    /**
+     * 批量重置用户密码
+     * @param userIds
+     * @return
+     */
+    @PutMapping("/resetPwd")
+    @ApiOperation("批量重置密码")
+    public Result<Object> resetPwd(@RequestBody List<Integer> userIds){
+        userService.resetPwd(userIds);
+        return new Result<>("重置完毕!");
     }
 }

@@ -3,7 +3,9 @@ package com.wcj.service.impl;
 import com.wcj.mapper.AdminMapper;
 import com.wcj.pojo.Admin;
 import com.wcj.service.AdminService;
+import com.wcj.utils.Md5;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +61,7 @@ public class AdminServiceImpl implements AdminService {
     public void updatePwd(Admin admin) {
         //先查再改
         Admin oldAdmin = adminMapper.getInfo();
-        oldAdmin.setPassword(admin.getPassword());
+        oldAdmin.setPassword(Md5.toMd5(admin));
         adminMapper.updateAdmin(oldAdmin);
     }
 

@@ -1,6 +1,5 @@
 package com.wcj.config;
 
-import com.wcj.pojo.Admin;
 import com.wcj.realm.AdminRealm;
 import lombok.Data;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;

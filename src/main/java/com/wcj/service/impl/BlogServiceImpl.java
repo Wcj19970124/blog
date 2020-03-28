@@ -52,7 +52,21 @@ public class BlogServiceImpl implements BlogService {
      * @param blog
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateBlog(Blog blog) {
+        //先查询修改前博客的类型
+        Blog oldBlog = blogMapper.getBlog(blog.getBlogId());
+        Type oldType = typeMapper.getType(oldBlog.getBlogType());
+        //再查询修改后博客的类型
+        Type nowType = typeMapper.getType(blog.getBlogType());
+        if (!oldType.getTypeId().equals(nowType.getTypeId())) {
+            //将原始类型博客数减1
+            oldType.setTypeBlogCount(oldType.getTypeBlogCount() - 1);
+            typeMapper.updateType(oldType);
+            //再将修改后博客类型的博客数加1
+            nowType.setTypeBlogCount(nowType.getTypeBlogCount() + 1);
+            typeMapper.updateType(nowType);
+        }
         blogMapper.updateBlog(blog);
     }
 
@@ -73,8 +87,15 @@ public class BlogServiceImpl implements BlogService {
      * @param id
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteBlog(String id) {
+        //先查询博客
+        Blog blog = blogMapper.getBlog(id);
         blogMapper.deleteBlog(id);
+        //将博客对应博客类型的博客数减1
+        Type type = typeMapper.getType(blog.getBlogType());
+        type.setTypeBlogCount(type.getTypeBlogCount() - 1);
+        typeMapper.updateType(type);
     }
 
     /**

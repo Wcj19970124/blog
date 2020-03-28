@@ -126,7 +126,7 @@ public class AboutController {
     public Result<Page<About>> getAboutList(@RequestBody Page<About> page) {
         String sortColumn = page.getSortColumn();
         if (StringUtils.isNotBlank(sortColumn)) {
-            String[] sortColumns = {"about_title", "created_time", "update_time"};
+            String[] sortColumns = {"about_read", "created_time", "update_time"};
             List<String> sortColumnList = Arrays.asList(sortColumns);
             if (!sortColumnList.contains(sortColumn)) {
                 return new Result<>(ResultEnum.PARAMS_ERROR.getCode(), "查询参数不合法!");

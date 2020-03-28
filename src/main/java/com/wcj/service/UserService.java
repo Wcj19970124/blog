@@ -3,6 +3,8 @@ package com.wcj.service;
 import com.wcj.pojo.User;
 import com.wcj.utils.Page;
 
+import java.util.List;
+
 /**
  * @author wcj
  * @Date 2020/3/23 15:05
@@ -46,4 +48,10 @@ public interface UserService {
      * @param id
      */
     void deleteUser(Integer id);
+
+    /**
+     * 批量重置密码
+     * @param userIds
+     */
+    void resetPwd(List<Integer> userIds);
 }

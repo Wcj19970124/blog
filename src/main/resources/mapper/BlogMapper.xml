@@ -113,7 +113,7 @@
         <if test="params.blogTitle!=null and params.blogTitle!=''">
             and blog_title like CONCAT('%',#{params.blogTitle},'%')
         </if>
-        <if test="params.typeId!=null">
+        <if test="params.typeId!=null and params.typeId!=''">
             and type_id = #{params.typeId}
         </if>
         <if test="sortColumn!=null and sortColumn!=''">

@@ -56,4 +56,11 @@ public interface UserMapper {
      * @param id
      */
     void deleteUser(Integer id);
+
+    /**
+     * 获取用户列表
+     * @param userIds
+     * @return
+     */
+    List<User> getUsers(List<Integer> userIds);
 }

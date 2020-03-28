@@ -3,6 +3,7 @@ package com.wcj.service.impl;
 import com.wcj.mapper.UserMapper;
 import com.wcj.pojo.User;
 import com.wcj.service.UserService;
+import com.wcj.utils.Md5;
 import com.wcj.utils.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void addUser(User user) {
+        user.setPassword(Md5.toMd5(user));
         userMapper.addUser(user);
     }
 
@@ -80,5 +82,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Integer id) {
         userMapper.deleteUser(id);
+    }
+
+    /**
+     * 批量重置密码
+     * @param userIds
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void resetPwd(List<Integer> userIds) {
+        //重置密码为123456
+        //先查再重置，这样可以使用乐观锁，
+        //保证数据的完整性和不会出现脏数据
+        List<User> userList = userMapper.getUsers(userIds);
+        //然后遍历修改
+        userList.forEach(e->{
+            e.setPassword(Md5.toMd5(e,"123456"));
+            userMapper.updateUser(e);
+        });
     }
 }

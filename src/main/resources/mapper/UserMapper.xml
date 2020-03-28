@@ -31,27 +31,27 @@
     <!-- 修改用户 -->
     <update id="updateUser" parameterType="com.wcj.pojo.User">
         update bl_user set
-        version=version+1,
+        version=version+1
         <if test="username!=null and username!=''">
-            username=#{username},
+            ,username=#{username}
         </if>
         <if test="password!=null and password!=''">
-            password=#{password},
+            ,password=#{password}
         </if>
         <if test="name!=null and name!=''">
-            name=#{name},
+            ,name=#{name}
         </if>
         <if test="sex!=null ">
-            sex=#{sex},
+            ,sex=#{sex}
         </if>
         <if test="header!=null and header!=''">
-            header=#{header},
+            ,header=#{header}
         </if>
         <if test="nickname!=null and nickname!=''">
-            nickname=#{nickname},
+            ,nickname=#{nickname}
         </if>
         <if test="userEmail!=null and userEmail!=''">
-            user_email=#{userEmail}
+            ,user_email=#{userEmail}
         </if>
         where user_id=#{userId} and version=#{version}
     </update>
@@ -93,11 +93,8 @@
         <if test="params.createdTime!=null and params.createdTime!=''">
             and created_time like CONCAT('%',#{params.createdTime},'%')
         </if>
-        <if test="params.updateTime!=null and params.updateTime!=''">
-           and update_time like CONCAT('%',#{params.updateTime},'%')
-        </if>
         <if test="sortColumn!=null and sortColumn!=''">
-           and order by ${sortColumn} ${sortMethod}
+           order by ${sortColumn} ${sortMethod}
         </if>
         limit #{index},#{pageSize}
     </select>
@@ -128,6 +125,16 @@
         <if test="params.updateTime!=null and params.updateTime!=''">
             and update_time like CONCAT('%',#{params.updateTime},'%')
         </if>
+    </select>
+    <!-- 获取用户列表，用于重置密码 -->
+    <select id="getUsers" resultMap="BaseResultMap">
+        select user_id,username,version
+        from bl_user
+        where user_id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        and deleted = 0
     </select>
 
 </mapper>

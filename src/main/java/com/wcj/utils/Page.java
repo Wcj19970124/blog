@@ -15,8 +15,8 @@ import java.util.Map;
 @Data
 public class Page<T> implements Serializable {
 
-    public static final String SORT_ASC = "asc";
-    public static final String SORT_DESC = "desc";
+    public static final String SORT_ASC = "ASC";
+    public static final String SORT_DESC = "DESC";
 
     /**
      * 当前页

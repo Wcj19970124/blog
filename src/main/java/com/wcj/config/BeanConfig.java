@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfig {
 
+    /**
+     * 雪花算法加密
+     * @return
+     */
     @Bean
     public IdWorker idWorker(){
         return new IdWorker();

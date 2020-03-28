@@ -43,7 +43,7 @@
     </update>
     <!-- 根据用户名查询用户信息 -->
     <select id="getAdminByUserName" resultMap="BaseResultMap">
-        select name,signature,username,password from bl_admin where username=#{userName}
+        select name,header,signature,username,password from bl_admin where username=#{userName}
     </select>
     <!-- 查询用户信息 -->
     <select id="getInfo" resultMap="BaseResultMap">
