@@ -48,7 +48,7 @@
     </select>
     <!-- 查询友情链接列表 -->
     <select id="getLinkList" resultMap="BaseResultMap">
-        select link_id,link_name,link_url,created_time,update_time,version from bl_link
+        select link_id,link_name,link_url,created_time,update_time,version from bl_link where deleted=0
     </select>
 
 </mapper>

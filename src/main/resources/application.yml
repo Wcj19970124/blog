@@ -67,6 +67,7 @@ upload:
     - image/bmp
     - image/gif
     - audio/mpng
+    - audio/mp3
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml

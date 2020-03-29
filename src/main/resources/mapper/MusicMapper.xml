@@ -47,7 +47,7 @@
                 cover=#{cover},
             </if>
             <if test="lrc!=null and lrc!=''">
-                lrc=#{lrc}
+                lrc=#{lrc},
             </if>
             <if test="enabled!=null ">
                 enabled=#{enabled}

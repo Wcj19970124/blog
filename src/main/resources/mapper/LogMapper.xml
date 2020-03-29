@@ -84,8 +84,8 @@
     <!-- 查询所有的日志信息 -->
     <select id="getAll" resultMap="BaseResultMap">
         select
-        log_id, log_url, log_params, log_status, log_message,
-        log_method, log_time, log_result, log_ip, created_time
+        log_id, log_url, log_status, log_message,
+        log_method, log_time, log_ip, created_time
         from bl_log
     </select>
 
