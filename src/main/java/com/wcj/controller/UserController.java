@@ -5,14 +5,18 @@ import com.wcj.pojo.User;
 import com.wcj.service.UserService;
 import com.wcj.utils.Page;
 import com.wcj.utils.Result;
+import com.wcj.utils.ShiroUtils;
 import com.wcj.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * @author wcj
@@ -110,5 +114,47 @@ public class UserController {
     public Result<Object> resetPwd(@RequestBody List<Integer> userIds){
         userService.resetPwd(userIds);
         return new Result<>("重置完毕!");
+    }
+
+    /**
+     * 前台用户注册
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping("/register")
+    @ApiOperation("前台用户注册")
+    public Result<Object> register(@RequestBody User user) {
+        userService.register(user);
+        return new Result<>("注册成功!");
+    }
+
+    /**
+     * 前台用户登录
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping("/login")
+    @ApiOperation("前台用户登录")
+    public Result<Object> login(@RequestBody User user) {
+        //验证参数是否为空
+        if(user==null || StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())){
+            return new Result<>("用户名或密码错误!");
+        }
+        //登录
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        try{
+            subject.login(token);
+        }catch (Exception e){
+            return new Result<>("用户名或密码错误!");
+        }
+        //登录成功
+        Map<String,Object> userMap = new HashMap<>(4);
+        Serializable sessionId = subject.getSession().getId();
+        userMap.put("token",sessionId);
+        userMap.put("user", (User)ShiroUtils.getLoginUser());
+        return new Result<>(userMap);
     }
 }

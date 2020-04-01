@@ -1,5 +1,7 @@
 package com.wcj.service.impl;
 
+import com.wcj.enums.ResultEnum;
+import com.wcj.exception.BlogException;
 import com.wcj.mapper.UserMapper;
 import com.wcj.pojo.User;
 import com.wcj.service.UserService;
@@ -100,5 +102,33 @@ public class UserServiceImpl implements UserService {
             e.setPassword(Md5.toMd5(e,"123456"));
             userMapper.updateUser(e);
         });
+    }
+
+    /**
+     * 前台注册用户
+     * @param user
+     */
+    @Override
+    public void register(User user) {
+        //先根据用户名查询用户
+        User u = userMapper.getUserByUserName(user.getUsername());
+        //如果存在,抛出异常
+        if(u!=null){
+            throw new BlogException(ResultEnum.PARAMS_ERROR.getCode(),"用户已存在!");
+        }
+        //如果不存在，则insert
+        //明文密码加密
+        user.setPassword(Md5.toMd5(user,user.getPassword()));
+        userMapper.insertUser(user);
+    }
+
+    /**
+     * 根据用户名查询用户信息
+     * @param userName
+     * @return
+     */
+    @Override
+    public User getUserByUserName(String userName) {
+        return userMapper.getUserByUserName(userName);
     }
 }

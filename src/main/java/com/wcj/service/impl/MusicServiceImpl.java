@@ -108,4 +108,14 @@ public class MusicServiceImpl implements MusicService {
         music.setEnabled(StateEnum.NOT_ENABLE.getCode());
         musicMapper.updateMusic(music);
     }
+
+    /**
+     * 前台查询音乐列表
+     * @return
+     */
+    @Override
+    public List<Music> getMusicList() {
+        List<Music> musicList = musicMapper.getList();
+        return musicList;
+    }
 }

@@ -3,6 +3,7 @@ package com.wcj.vo;
 import lombok.Data;
 
 /**
+ * 博客vo类
  * @author wcj
  * @Date 2020/3/25 9:20
  * @Version 1.0
@@ -69,6 +70,11 @@ public class BlogVo {
      * 创建时间
      */
     private String createdTime;
+
+    /**
+     * 博客对应月份
+     */
+    private String blogMonth;
 
     /**
      * 更新时间

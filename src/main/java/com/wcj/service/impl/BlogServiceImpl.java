@@ -7,7 +7,9 @@ import com.wcj.pojo.Type;
 import com.wcj.service.BlogService;
 import com.wcj.utils.IdWorker;
 import com.wcj.utils.Page;
+import com.wcj.utils.TimeLineUtils;
 import com.wcj.vo.BlogVo;
+import com.wcj.vo.TimeLineVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -137,5 +140,52 @@ public class BlogServiceImpl implements BlogService {
         Type type = typeMapper.getType(blog.getBlogType());
         blogVo.setTypeName(type.getTypeName());
         return blogVo;
+    }
+
+    /**
+     * 前台推荐阅读
+     * @return
+     */
+    @Override
+    public List<BlogVo> recommendRead() {
+        return blogMapper.recommendRead();
+    }
+
+    /**
+     * 获取时间轴
+     * @return
+     */
+    @Override
+    public List<TimeLineVo> getTimeLine() {
+        //获取时间轴数据
+        List<BlogVo> blogVoList = blogMapper.getBlogVoList();
+        //创建返回时间轴集合
+        List<TimeLineVo> timeLineVoList = new ArrayList<>(16);
+        blogVoList.forEach(e->{
+            //获取月份
+            String month = e.getBlogMonth();
+            //创建备用时间轴对象
+            TimeLineVo timeLineVo = new TimeLineVo();
+            //添加月份
+            timeLineVo.setMonth(month);
+            if(timeLineVoList.contains(timeLineVo)){
+                TimeLineVo timeLine = TimeLineUtils.getTimeLineVo(timeLineVoList,timeLineVo);
+                List<BlogVo> blogVoList1 = timeLine.getBlogVoList();
+                if(blogVoList1==null){
+                    blogVoList1 = new ArrayList<>(8);
+                }
+                blogVoList1.add(e);
+                timeLine.setBlogVoList(blogVoList1);
+            }else{
+                List<BlogVo> blogVoList1 = timeLineVo.getBlogVoList();
+                if(blogVoList1==null){
+                    blogVoList1 = new ArrayList<>(8);
+                }
+                blogVoList1.add(e);
+                timeLineVo.setBlogVoList(blogVoList1);
+                timeLineVoList.add(timeLineVo);
+            }
+        });
+        return timeLineVoList;
     }
 }

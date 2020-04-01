@@ -15,8 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @MapperScan("com.wcj.mapper")
 @EnableTransactionManagement
-@EnableSwagger2
-@EnableSwagger2Doc
 public class BlogApplication {
 
     public static void main(String[] args) {

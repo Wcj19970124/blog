@@ -3,6 +3,9 @@ package com.wcj.service;
 import com.wcj.pojo.Blog;
 import com.wcj.utils.Page;
 import com.wcj.vo.BlogVo;
+import com.wcj.vo.TimeLineVo;
+
+import java.util.List;
 
 /**
  * @author wcj
@@ -49,4 +52,17 @@ public interface BlogService {
      * @return
      */
     BlogVo readBlog(String id);
+
+    /**
+     * 前台推荐阅读
+     * @return
+     */
+    List<BlogVo> recommendRead();
+
+    /**
+     * 获取时间轴
+     * @return
+     */
+    List<TimeLineVo> getTimeLine();
+
 }

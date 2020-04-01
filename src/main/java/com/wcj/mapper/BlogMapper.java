@@ -56,4 +56,16 @@ public interface BlogMapper {
      * @return
      */
     int getCountByPage(Page<BlogVo> page);
+
+    /**
+     * 前台推荐阅读
+     * @return
+     */
+    List<BlogVo> recommendRead();
+
+    /**
+     * 获取时间轴数据
+     * @return
+     */
+    List<BlogVo> getBlogVoList();
 }

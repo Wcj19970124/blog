@@ -136,5 +136,15 @@
         </foreach>
         and deleted = 0
     </select>
+    <select id="getUserByUserName" resultMap="BaseResultMap">
+        select user_id, username, password, name, sex, header, nickname, user_email, deleted
+        from bl_user
+        where username=#{username}
+    </select>
+    <insert id="insertUser" parameterType="com.wcj.pojo.User">
+        insert into bl_user(username,password,nickname,user_email,sex)
+        values(#{username},#{password},#{nickname},#{userEmail},#{sex})
+    </insert>
+
 
 </mapper>

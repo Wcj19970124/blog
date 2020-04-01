@@ -17,6 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
 
     /**
+     * 白名单
+     */
+    private static String[] whiteList = {
+            "/login", "/link/list", "/music/listFront", "/blog/read", "/admin/getInfo", "/type/listFront"
+            ,"/about/read","/blog/recommendRead","/blog/list","/blog/getTimeLine"
+    };
+
+    /**
      * controller执行之前拦截
      * @param request
      * @param response
@@ -26,6 +34,9 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (containsWhiteList(request.getRequestURI())) {
+            return true;
+        }
         String token = request.getHeader("Authorization");
         if(StringUtils.isNotBlank(token)){
             Object loginAdmin = ShiroUtils.getLoginAdmin();
@@ -34,5 +45,20 @@ public class LoginInterceptor implements HandlerInterceptor {
             }
         }
         throw new BlogException(ResultEnum.NOT_LOGIN);
+    }
+
+    /**
+     * 判断访问路径是否在白名单中
+     *
+     * @param url
+     * @return
+     */
+    public boolean containsWhiteList(String url) {
+        for (String str : whiteList) {
+            if (url.contains(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

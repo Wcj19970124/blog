@@ -90,6 +90,17 @@ public class MusicController {
     }
 
     /**
+     * 前台查询音乐列表
+     * @return
+     */
+    @GetMapping("/listFront")
+    @ApiOperation("前台查询音乐列表")
+    public Result<List<Music>> getMusicList() {
+        List<Music> musicList = musicService.getMusicList();
+        return new Result<>(musicList);
+    }
+
+    /**
      * 根据id删除音乐
      *
      * @param id

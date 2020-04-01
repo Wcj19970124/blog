@@ -70,7 +70,7 @@ public class AdminController {
     @GetMapping("/info")
     @ApiOperation(value = "获取登录用户信息")
     public Result<Admin> getAdminInfo() {
-        Admin loginAdmin = ShiroUtils.getLoginAdmin();
+        Admin loginAdmin = (Admin) ShiroUtils.getLoginUser();
         loginAdmin.setPassword("");
         return new Result<>(loginAdmin);
     }

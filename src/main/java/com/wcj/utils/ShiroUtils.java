@@ -1,6 +1,7 @@
 package com.wcj.utils;
 
 import com.wcj.pojo.Admin;
+import com.wcj.pojo.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -21,17 +22,22 @@ public class ShiroUtils {
     }
 
     /**
-     * 获取登录中的用户
+     * 获取前后台登录中的用户
      *
      * @return
      */
-    public static Admin getLoginAdmin() {
+    public static Object getLoginUser() {
         Session session = SecurityUtils.getSubject().getSession();
         SimplePrincipalCollection principalCollection = (SimplePrincipalCollection) session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
         if (principalCollection == null) {
             return null;
         }
-        return (Admin) principalCollection.getPrimaryPrincipal();
+        if(principalCollection.getPrimaryPrincipal() instanceof Admin){
+            return (Admin) principalCollection.getPrimaryPrincipal();
+        }else{
+            return (User)principalCollection.getPrimaryPrincipal();
+        }
+
     }
 
 }

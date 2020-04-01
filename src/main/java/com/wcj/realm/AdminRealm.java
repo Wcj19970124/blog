@@ -3,12 +3,16 @@ package com.wcj.realm;
 import com.wcj.enums.ResultEnum;
 import com.wcj.exception.BlogException;
 import com.wcj.pojo.Admin;
+import com.wcj.pojo.User;
 import com.wcj.service.AdminService;
+import com.wcj.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +27,8 @@ public class AdminRealm extends AuthorizingRealm {
 
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 认证方法
@@ -35,13 +41,27 @@ public class AdminRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         String userName = usernamePasswordToken.getUsername();
-        Admin admin = adminService.getAdminByUserName(userName);
-        if (admin == null) {
-            throw new BlogException(ResultEnum.ERROR.getCode(), "用户不存在！");
+
+        //获取用户身份--是后台管理员--还是前台用户
+        //分别进行验证
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.getPrincipal() instanceof Admin) {
+            Admin admin = adminService.getAdminByUserName(userName);
+            if (admin == null) {
+                throw new BlogException(ResultEnum.ERROR.getCode(), "用户不存在！");
+            }
+            //构建盐值
+            ByteSource credentialSalt = ByteSource.Util.bytes(admin.getUsername());
+            return new SimpleAuthenticationInfo(admin, admin.getPassword(), credentialSalt, this.getName());
+        } else {
+            User user = userService.getUserByUserName(userName);
+            if (userName == null || user.getDeleted() == 1) {
+                throw new BlogException(ResultEnum.ERROR.getCode(), "用户不存在!");
+            }
+            ByteSource credentialSalt = ByteSource.Util.bytes(user.getUsername());
+            return new SimpleAuthenticationInfo(user, user.getPassword(), credentialSalt, this.getName());
         }
-        //构建盐值
-        ByteSource credentialSalt = ByteSource.Util.bytes(admin.getUsername());
-        return new SimpleAuthenticationInfo(admin, admin.getPassword(), credentialSalt, this.getName());
+
     }
 
     /**

@@ -7,6 +7,7 @@ import com.wcj.utils.Page;
 import com.wcj.utils.Result;
 import com.wcj.utils.StringUtils;
 import com.wcj.vo.BlogVo;
+import com.wcj.vo.TimeLineVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +93,18 @@ public class BlogController {
     }
 
     /**
+     * 前台推荐阅读
+     *
+     * @return
+     */
+    @GetMapping("/recommendRead")
+    @ApiOperation("前台推荐阅读")
+    public Result<List<BlogVo>> recommendRead() {
+        List<BlogVo> blogVoList = blogService.recommendRead();
+        return new Result<>(blogVoList);
+    }
+
+    /**
      * 删除博客
      *
      * @param id
@@ -115,5 +128,17 @@ public class BlogController {
     public Result<BlogVo> readBlog(@PathVariable String id) {
         BlogVo blogVo = blogService.readBlog(id);
         return new Result<>(blogVo);
+    }
+
+    /**
+     * 获取时间轴
+     *
+     * @return
+     */
+    @GetMapping("/getTimeLine")
+    @ApiOperation("获取时间轴")
+    public Result<List<TimeLineVo>> getTimeLine() {
+        List<TimeLineVo> timeLineVoList = blogService.getTimeLine();
+        return new Result<>(timeLineVoList);
     }
 }

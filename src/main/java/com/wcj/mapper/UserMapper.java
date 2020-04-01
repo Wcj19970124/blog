@@ -63,4 +63,17 @@ public interface UserMapper {
      * @return
      */
     List<User> getUsers(List<Integer> userIds);
+
+    /**
+     * 根据用户名查询用户
+     * @param username
+     * @return
+     */
+    User getUserByUserName(String username);
+
+    /**
+     * 前台注册用户
+     * @param user
+     */
+    void insertUser(User user);
 }

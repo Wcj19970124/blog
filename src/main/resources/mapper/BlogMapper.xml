@@ -32,6 +32,7 @@
         <result column="blog_comment" property="blogComment"/>
         <result column="blog_source" property="blogSource"/>
         <result column="created_time" property="createdTime"/>
+        <result column="blog_month" property="blogMonth"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
@@ -135,6 +136,25 @@
         <if test="params.typeId!=null">
             and type_id = #{params.typeId}
         </if>
+    </select>
+    <!-- 前台推荐阅读 -->
+    <select id="recommendRead" resultMap="VoBaseResultMap">
+        select  blog_id, blog_title, blog_goods,
+        blog_read, blog_collection, type_name, blog_comment,
+        created_time
+        from bl_blog as b
+        inner join bl_type as t
+        on blog_type = type_id
+        where b.deleted = 0 and t.deleted = 0
+        order by (blog_read+blog_goods) desc
+        limit 5
+    </select>
+    <!-- 获取事件轴数据 -->
+    <select id="getBlogVoList" resultMap="VoBaseResultMap">
+        select  blog_id, blog_title,created_time,
+        DATE_FORMAT(created_time,'%Y-%m') as blog_month
+        from bl_blog
+        order by created_time desc
     </select>
 
 </mapper>

@@ -122,5 +122,16 @@
             and enabled = #{params.enabled}
         </if>
     </select>
+    <!-- 前台查询音乐列表 -->
+    <select id="getList" resultMap="BaseResultMap">
+        select
+        name,
+        artist,
+        url,
+        cover,
+        lrc
+        from bl_music
+        where enabled = 1 and deleted = 0
+    </select>
 
 </mapper>

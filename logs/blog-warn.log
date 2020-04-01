@@ -1,10 +1,36 @@
-2020-03-29 10:37:21.739 WARN  [http-nio-1000-exec-5]o.s.w.s.mvc.support.DefaultHandlerExceptionResolver.logException:199 -Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
-2020-03-29 10:37:55.849 WARN  [http-nio-1000-exec-6]o.s.w.s.mvc.support.DefaultHandlerExceptionResolver.logException:199 -Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
-2020-03-29 11:33:41.739 WARN  [http-nio-1000-exec-10]com.alibaba.druid.pool.DruidDataSource.getConnectionDirect:1260 -get connection timeout retry : 1
-2020-03-29 11:34:01.761 WARN  [http-nio-1000-exec-10]com.alibaba.druid.pool.DruidDataSource.getConnectionDirect:1260 -get connection timeout retry : 1
-2020-03-29 11:34:17.406 WARN  [http-nio-1000-exec-1]com.alibaba.druid.pool.DruidDataSource.getConnectionDirect:1260 -get connection timeout retry : 1
-2020-03-29 11:34:37.411 WARN  [http-nio-1000-exec-1]com.alibaba.druid.pool.DruidDataSource.getConnectionDirect:1260 -get connection timeout retry : 1
-2020-03-29 11:42:20.799 WARN  [http-nio-1000-exec-2]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
-2020-03-29 11:42:20.989 WARN  [http-nio-1000-exec-4]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
-2020-03-29 11:56:33.076 WARN  [http-nio-1000-exec-2]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
-2020-03-29 11:56:33.165 WARN  [http-nio-1000-exec-4]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 10:34:15.856 WARN  [http-nio-1000-exec-2]o.s.w.s.mvc.support.DefaultHandlerExceptionResolver.logException:199 -Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.wcj.utils.Result<com.wcj.utils.Page<com.wcj.pojo.Music>> com.wcj.controller.MusicController.getMusicList(com.wcj.utils.Page<com.wcj.pojo.Music>)]
+2020-04-01 10:34:23.564 WARN  [http-nio-1000-exec-1]o.s.w.s.mvc.support.DefaultHandlerExceptionResolver.logException:199 -Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.wcj.utils.Result<com.wcj.utils.Page<com.wcj.pojo.Music>> com.wcj.controller.MusicController.getMusicList(com.wcj.utils.Page<com.wcj.pojo.Music>)]
+2020-04-01 10:34:43.601 WARN  [http-nio-1000-exec-4]o.s.w.s.mvc.support.DefaultHandlerExceptionResolver.logException:199 -Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.wcj.utils.Result<com.wcj.utils.Page<com.wcj.pojo.Music>> com.wcj.controller.MusicController.getMusicList(com.wcj.utils.Page<com.wcj.pojo.Music>)]
+2020-04-01 10:40:07.067 WARN  [http-nio-1000-exec-8]o.s.w.s.mvc.support.DefaultHandlerExceptionResolver.logException:199 -Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.wcj.utils.Result<com.wcj.utils.Page<com.wcj.pojo.Music>> com.wcj.controller.MusicController.getMusicList(com.wcj.utils.Page<com.wcj.pojo.Music>)]
+2020-04-01 10:52:22.268 WARN  [http-nio-1000-exec-3]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 10:52:25.888 WARN  [http-nio-1000-exec-7]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 10:52:45.563 WARN  [http-nio-1000-exec-5]o.s.w.s.mvc.support.DefaultHandlerExceptionResolver.logException:199 -Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2020-04-01 10:52:51.946 WARN  [http-nio-1000-exec-10]o.s.w.s.mvc.support.DefaultHandlerExceptionResolver.logException:199 -Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2020-04-01 11:00:37.118 WARN  [http-nio-1000-exec-10]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 11:03:02.818 WARN  [http-nio-1000-exec-3]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 11:42:02.970 WARN  [http-nio-1000-exec-7]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 11:44:16.186 WARN  [http-nio-1000-exec-4]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 11:45:13.626 WARN  [http-nio-1000-exec-6]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 12:04:59.513 WARN  [http-nio-1000-exec-2]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 12:05:38.287 WARN  [http-nio-1000-exec-6]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 12:06:33.012 WARN  [http-nio-1000-exec-2]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 14:20:28.380 WARN  [http-nio-1000-exec-5]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 14:25:14.395 WARN  [http-nio-1000-exec-10]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 14:25:29.947 WARN  [http-nio-1000-exec-7]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 14:36:31.581 WARN  [http-nio-1000-exec-9]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 16:23:41.737 WARN  [http-nio-1000-exec-7]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp;jsessionid=978A60162D5F13A4B61A98021CA96608
+2020-04-01 16:23:41.811 WARN  [http-nio-1000-exec-9]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 17:29:06.291 WARN  [http-nio-1000-exec-2]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /blog/readBlog/null
+2020-04-01 17:30:09.536 WARN  [http-nio-1000-exec-9]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /blog/readBlog/1245266687478050816
+2020-04-01 17:31:40.236 WARN  [http-nio-1000-exec-6]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /blog/readBlog/1245266687478050816
+2020-04-01 17:32:59.835 WARN  [http-nio-1000-exec-10]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /blog/readBlog/1243938070395424768
+2020-04-01 17:49:51.366 WARN  [http-nio-1000-exec-7]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp
+2020-04-01 20:28:57.272 WARN  [restartedMain]o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext.refresh:558 -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'blogController': Unsatisfied dependency expressed through field 'blogService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.wcj.service.BlogService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2020-04-01 20:57:19.943 WARN  [http-nio-1000-exec-9]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 20:57:24.708 WARN  [http-nio-1000-exec-5]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 20:59:14.179 WARN  [http-nio-1000-exec-2]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 20:59:20.683 WARN  [http-nio-1000-exec-5]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 21:05:45.673 WARN  [http-nio-1000-exec-4]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 21:06:04.339 WARN  [http-nio-1000-exec-10]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for GET /login.jsp
+2020-04-01 22:17:35.442 WARN  [http-nio-1000-exec-4]com.alibaba.druid.pool.DruidDataSource.getConnectionDirect:1260 -get connection timeout retry : 1
+2020-04-01 22:51:06.923 WARN  [http-nio-1000-exec-2]org.springframework.web.servlet.PageNotFound.noHandlerFound:1251 -No mapping for OPTIONS /login.jsp

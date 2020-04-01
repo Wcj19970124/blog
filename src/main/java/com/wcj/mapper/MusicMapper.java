@@ -56,4 +56,10 @@ public interface MusicMapper {
      * @param id
      */
     void deleteMusic(Integer id);
+
+    /**
+     * 前台查询音乐列表
+     * @return
+     */
+    List<Music> getList();
 }

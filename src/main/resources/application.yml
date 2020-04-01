@@ -68,6 +68,7 @@ upload:
     - image/gif
     - audio/mpng
     - audio/mp3
+    - audio/flac
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
@@ -87,19 +88,16 @@ shiro:
   #放行路径
   anon-urls:
     - /*/login
-    - /swagger-resources
-    - /v2/**
-    - /swagger-ui.html
-    - /webjars/**
+    - /link/list
+    - /music/listFront
+    - /blog/list
+    - /blog/read/**
+    - /blog/recommendRead
+    - /blog/getTimeLine
+    - /admin/getInfo
+    - /type/listFront
+    - /about/read
 
 
-#配置swagger
-swagger:
-  enabled: true
-  base-package: com.wcj
-  contact:
-    name: wcj
-    email: 570857634@qq.com
-    url: www.520wcj.cn
 
 

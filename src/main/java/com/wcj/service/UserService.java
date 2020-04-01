@@ -54,4 +54,17 @@ public interface UserService {
      * @param userIds
      */
     void resetPwd(List<Integer> userIds);
+
+    /**
+     * 前台注册用户
+     * @param user
+     */
+    void register(User user);
+
+    /**
+     * 根据用户名查询用户信息
+     * @param userName
+     * @return
+     */
+    User getUserByUserName(String userName);
 }

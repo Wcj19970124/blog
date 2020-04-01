@@ -3,6 +3,8 @@ package com.wcj.service;
 import com.wcj.pojo.Music;
 import com.wcj.utils.Page;
 
+import java.util.List;
+
 /**
  * @author wcj
  * @Date 2020/3/23 15:05
@@ -60,4 +62,11 @@ public interface MusicService {
      * @param id
      */
     void disableMusic(Integer id);
+
+    /**
+     * 前台查询音乐列表
+     * @return
+     */
+    List<Music> getMusicList();
+
 }
