@@ -141,10 +141,10 @@
         from bl_user
         where username=#{username}
     </select>
-    <insert id="insertUser" parameterType="com.wcj.pojo.User">
-        insert into bl_user(username,password,nickname,user_email,sex)
-        values(#{username},#{password},#{nickname},#{userEmail},#{sex})
-    </insert>
+<!--    <insert id="insertUser" parameterType="com.wcj.pojo.User">-->
+<!--        insert into bl_user(username,password,nickname,user_email,sex)-->
+<!--        values(#{username},#{password},#{nickname},#{userEmail},#{sex})-->
+<!--    </insert>-->
 
 
 </mapper>

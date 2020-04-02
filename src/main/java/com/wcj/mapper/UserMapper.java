@@ -71,9 +71,5 @@ public interface UserMapper {
      */
     User getUserByUserName(String username);
 
-    /**
-     * 前台注册用户
-     * @param user
-     */
-    void insertUser(User user);
+
 }

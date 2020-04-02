@@ -88,6 +88,8 @@ shiro:
   #放行路径
   anon-urls:
     - /*/login
+    - /user/login
+    - /user/register
     - /link/list
     - /music/listFront
     - /blog/list

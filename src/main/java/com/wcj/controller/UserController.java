@@ -153,8 +153,11 @@ public class UserController {
         //登录成功
         Map<String,Object> userMap = new HashMap<>(4);
         Serializable sessionId = subject.getSession().getId();
+        User u = (User)ShiroUtils.getLoginUser();
+        u.setPassword("");
+        u.setDeleted(null);
         userMap.put("token",sessionId);
-        userMap.put("user", (User)ShiroUtils.getLoginUser());
+        userMap.put("user",u);
         return new Result<>(userMap);
     }
 }

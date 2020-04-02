@@ -118,8 +118,9 @@ public class UserServiceImpl implements UserService {
         }
         //如果不存在，则insert
         //明文密码加密
-        user.setPassword(Md5.toMd5(user,user.getPassword()));
-        userMapper.insertUser(user);
+        user.setPassword(Md5.toMd5(user));
+        user.setName("");
+        userMapper.addUser(user);
     }
 
     /**

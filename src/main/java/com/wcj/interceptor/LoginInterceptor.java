@@ -20,8 +20,8 @@ public class LoginInterceptor implements HandlerInterceptor {
      * 白名单
      */
     private static String[] whiteList = {
-            "/login", "/link/list", "/music/listFront", "/blog/read", "/admin/getInfo", "/type/listFront"
-            ,"/about/read","/blog/recommendRead","/blog/list","/blog/getTimeLine"
+            "/admin/login", "/user/login","/link/list", "/music/listFront", "/blog/read", "/admin/getInfo", "/type/listFront"
+            ,"/about/read","/blog/recommendRead","/blog/list","/blog/getTimeLine","/user/register"
     };
 
     /**
@@ -39,8 +39,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         String token = request.getHeader("Authorization");
         if(StringUtils.isNotBlank(token)){
-            Object loginAdmin = ShiroUtils.getLoginAdmin();
-            if(loginAdmin!=null){
+            Object loginUser = ShiroUtils.getLoginUser();
+            if(loginUser!=null){
                 return true;
             }
         }
