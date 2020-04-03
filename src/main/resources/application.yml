@@ -43,6 +43,11 @@ spring:
       max-file-size: 50MB
       #上传文件大小
       max-request-size: 100MB
+  #配置mongodb
+  data:
+    mongodb:
+      host: 121.199.34.159
+      database: blog
 
 #fastdfs配置
 fdfs:
@@ -99,6 +104,7 @@ shiro:
     - /admin/getInfo
     - /type/listFront
     - /about/read
+    - /comment/getComment/**
 
 
 

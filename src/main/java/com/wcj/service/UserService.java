@@ -1,7 +1,9 @@
 package com.wcj.service;
 
+import com.wcj.pojo.Comment;
 import com.wcj.pojo.User;
 import com.wcj.utils.Page;
+import com.wcj.vo.BlogVo;
 
 import java.util.List;
 
@@ -67,4 +69,18 @@ public interface UserService {
      * @return
      */
     User getUserByUserName(String userName);
+
+    /**
+     * 根据用户id分页查询用户的收藏博客列表
+     * @param page
+     * @return
+     */
+    Page<BlogVo> getCollection(Page<BlogVo> page);
+
+    /**
+     * 根据用户id分页查询用户的所有评论列表
+     * @param page
+     * @return
+     */
+    Page<Comment> getComment(Page<Comment> page);
 }

@@ -1,17 +1,27 @@
 package com.wcj.service.impl;
 
+import com.wcj.dao.BlogCollectionDao;
+import com.wcj.dao.CommentDao;
 import com.wcj.enums.ResultEnum;
 import com.wcj.exception.BlogException;
+import com.wcj.mapper.TypeMapper;
 import com.wcj.mapper.UserMapper;
-import com.wcj.pojo.User;
+import com.wcj.pojo.*;
 import com.wcj.service.UserService;
 import com.wcj.utils.Md5;
 import com.wcj.utils.Page;
+import com.wcj.utils.ShiroUtils;
+import com.wcj.vo.BlogVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +35,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private BlogCollectionDao collectionDao;
+
+    @Autowired
+    private TypeMapper typeMapper;
+
+    @Autowired
+    private CommentDao commentDao;
 
     /**
      * 添加用户
@@ -132,4 +151,70 @@ public class UserServiceImpl implements UserService {
     public User getUserByUserName(String userName) {
         return userMapper.getUserByUserName(userName);
     }
+
+    /**
+     * 根据用户id分页查询用户的收藏博客列表
+     * @param page
+     * @return
+     */
+    @Override
+    public Page<BlogVo> getCollection(Page<BlogVo> page) {
+        //先构造构条件构造器
+        User user = (User) ShiroUtils.getLoginUser();
+        BlogCollection blogCollection = new BlogCollection();
+        blogCollection.setUserId(user.getUserId());
+        Example<BlogCollection> example = Example.of(blogCollection);
+        //再构造分页构造器
+        Pageable pageable = PageRequest.of(page.getCurrentPage()-1,page.getPageSize());
+        //再查询博客收藏记录
+        org.springframework.data.domain.Page<BlogCollection> blogCollections = collectionDao.findAll(example, pageable);
+        //再将博客收藏记录封装成Blog列表
+        List<Blog> blogList = new ArrayList<>();
+        blogCollections.forEach(e->{
+            blogList.add(e.getBlog());
+        });
+        //遍历blogList,获取博客类型，封装成BlogVo
+        List<BlogVo> blogVoList = new ArrayList<>();
+        blogList.forEach(e->{
+            BlogVo blogVo = new BlogVo();
+            BeanUtils.copyProperties(e,blogVo);
+            Type type = typeMapper.getType(e.getBlogType());
+            blogVo.setTypeName(type.getTypeName());
+            blogVoList.add(blogVo);
+        });
+        //封装page
+        page.setList(blogVoList);
+        //待优化，将long强转成int不好，可能会有数据精度丢失
+        page.setTotalCount((int) blogCollections.getTotalElements());
+        page.setTotalPage(blogCollections.getTotalPages());
+        return page;
+    }
+
+    /**
+     * 根据用户id分页查询用户的所有评论列表
+     * @param page
+     * @return
+     */
+    @Override
+    public Page<Comment> getComment(Page<Comment> page) {
+        //先创建条件构造器
+        User user = (User) ShiroUtils.getLoginUser();
+        Comment comment = new Comment();
+        comment.setCommentUser(user.getUserId());
+        Example<Comment>example = Example.of(comment);
+        //在创建分页构造器
+        Pageable pageable = PageRequest.of(page.getCurrentPage()-1,page.getPageSize());
+        //查询评论信息
+        org.springframework.data.domain.Page<Comment> comments = commentDao.findAll(example, pageable);
+        //封装page
+        page.setTotalPage(comments.getTotalPages());
+        page.setTotalCount((int) comments.getTotalElements());
+        List<Comment>commentList = new ArrayList<>();
+        comments.forEach(e->{
+            commentList.add(e);
+        });
+        page.setList(commentList);
+        return page;
+    }
+
 }

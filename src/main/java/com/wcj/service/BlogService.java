@@ -1,6 +1,8 @@
 package com.wcj.service;
 
 import com.wcj.pojo.Blog;
+import com.wcj.pojo.BlogCollection;
+import com.wcj.pojo.Goods;
 import com.wcj.utils.Page;
 import com.wcj.vo.BlogVo;
 import com.wcj.vo.TimeLineVo;
@@ -65,4 +67,29 @@ public interface BlogService {
      */
     List<TimeLineVo> getTimeLine();
 
+    /**
+     * 博客点赞
+     * @param goods
+     */
+    void goodBlog(Goods goods);
+
+    /**
+     * 根据用户id和博客id查询点赞数
+     * @param blogId
+     * @return
+     */
+    int getGoods(String blogId);
+
+    /**
+     * 收藏博客
+     * @param blogCollection
+     */
+    void blogCollection(BlogCollection blogCollection);
+
+    /**
+     * 根据用户id和博客id查询收藏
+     * @param blogId
+     * @return
+     */
+    int getCollection(String blogId);
 }

@@ -1,6 +1,5 @@
 package com.wcj.service.impl;
 
-import com.wcj.mapper.CollectionMapper;
 import com.wcj.service.CollectionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,4 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CollectionServiceImpl implements CollectionService {
 
-    @Autowired
-    private CollectionMapper collectionMapper;
 }

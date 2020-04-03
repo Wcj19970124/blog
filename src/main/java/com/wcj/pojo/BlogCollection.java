@@ -1,6 +1,7 @@
 package com.wcj.pojo;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
@@ -19,6 +20,7 @@ public class BlogCollection implements Serializable {
     /**
      * 收藏id
      */
+    @Id
     private String collectionId;
 
     /**
@@ -27,9 +29,19 @@ public class BlogCollection implements Serializable {
     private String blogId;
 
     /**
+     * 博客
+     */
+    private Blog blog;
+
+    /**
      * 用户id
      */
     private Integer userId;
+
+    /**
+     * 用户
+     */
+    private User user;
 
     /**
      * 收藏时间

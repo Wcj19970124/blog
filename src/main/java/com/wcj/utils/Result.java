@@ -22,10 +22,6 @@ public class Result<T> implements Serializable {
         this.msg = ResultEnum.SUCCESS.getMsg();
     }
 
-    public Result(Integer code) {
-        this.code = code;
-    }
-
     public Result(String msg) {
         this.code = ResultEnum.SUCCESS.getCode();
         this.msg = msg;

@@ -1,12 +1,15 @@
 package com.wcj.controller;
 
 import com.wcj.enums.ResultEnum;
+import com.wcj.pojo.Blog;
+import com.wcj.pojo.Comment;
 import com.wcj.pojo.User;
 import com.wcj.service.UserService;
 import com.wcj.utils.Page;
 import com.wcj.utils.Result;
 import com.wcj.utils.ShiroUtils;
 import com.wcj.utils.StringUtils;
+import com.wcj.vo.BlogVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -159,5 +162,28 @@ public class UserController {
         userMap.put("token",sessionId);
         userMap.put("user",u);
         return new Result<>(userMap);
+    }
+
+    /**
+     * 根据用户id分页查询用户的收藏博客列表
+     * @return
+     */
+    @PostMapping("/getCollection")
+    @ApiOperation("获取用户收藏文章列表")
+    public Result<Page<BlogVo>> getCollection(@RequestBody Page<BlogVo> page){
+         page = userService.getCollection(page);
+         return new Result<>(page);
+    }
+
+    /**
+     * 根据用户id分页查询用户的评论列表
+     * @param page
+     * @return
+     */
+    @PostMapping("/getComment")
+    @ApiOperation("获取用户的评论列表")
+    public Result<Page<Comment>> getComment(@RequestBody Page<Comment> page){
+        page = userService.getComment(page);
+        return new Result<>(page);
     }
 }

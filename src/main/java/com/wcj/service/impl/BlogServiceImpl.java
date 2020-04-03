@@ -1,23 +1,29 @@
 package com.wcj.service.impl;
 
+import com.wcj.dao.BlogCollectionDao;
+import com.wcj.dao.GoodsDao;
+import com.wcj.enums.ResultEnum;
+import com.wcj.exception.BlogException;
 import com.wcj.mapper.BlogMapper;
 import com.wcj.mapper.TypeMapper;
-import com.wcj.pojo.Blog;
-import com.wcj.pojo.Type;
+import com.wcj.mapper.UserMapper;
+import com.wcj.pojo.*;
 import com.wcj.service.BlogService;
-import com.wcj.utils.IdWorker;
-import com.wcj.utils.Page;
-import com.wcj.utils.TimeLineUtils;
+import com.wcj.utils.*;
 import com.wcj.vo.BlogVo;
 import com.wcj.vo.TimeLineVo;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +43,15 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private TypeMapper typeMapper;
+
+    @Autowired
+    private GoodsDao goodsDao;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private BlogCollectionDao collectionDao;
 
     /**
      * 添加博客
@@ -188,4 +203,72 @@ public class BlogServiceImpl implements BlogService {
         });
         return timeLineVoList;
     }
+
+    /**
+     * 博客点赞
+     * @param goods
+     */
+    @Override
+    public void goodBlog(Goods goods) {
+        //先查询是否已经点赞
+        int count = goodsDao.countByUserIdEqualsAndBlogIdEquals(goods.getUserId(),goods.getBlogId());
+        if(count>0){
+            throw new BlogException(ResultEnum.ERROR.getCode(),"已点赞，不能重复点赞!");
+        }
+        //先查询博客，再将博客点赞数加1
+        Blog blog = blogMapper.getBlog(goods.getBlogId());
+        blog.setBlogGoods(blog.getBlogGoods()+1);
+        blogMapper.updateBlog(blog);
+        //再存储点赞信息
+        goods.setId(idWorker.nextId()+"");
+        goodsDao.save(goods);
+    }
+
+    /**
+     * 根据用户id和博客id查询点赞数
+     * @param blogId
+     * @return
+     */
+    @Override
+    public int getGoods(String blogId) {
+        User user = (User) ShiroUtils.getLoginUser();
+        return goodsDao.countByUserIdEqualsAndBlogIdEquals(user.getUserId(),blogId);
+    }
+
+    /**
+     * 收藏博客
+     * @param blogCollection
+     */
+    @Override
+    public void blogCollection(BlogCollection blogCollection) {
+        //先查询用户是否已经收藏
+        int count = collectionDao.countByUserIdEqualsAndBlogIdEquals(blogCollection.getUserId(),blogCollection.getBlogId());
+        if(count>0){
+            throw new BlogException("已收藏，不能重复收藏!");
+        }
+        blogCollection.setCollectionId(idWorker.nextId()+"");
+        blogCollection.setCollectionTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        //查询用户
+        User user = userMapper.getUser(blogCollection.getUserId());
+        blogCollection.setUser(user);
+        //查询博客,将博客收藏数加1
+        Blog blog = blogMapper.getBlog(blogCollection.getBlogId());
+        blog.setBlogCollection(blog.getBlogCollection()+1);
+        blogMapper.updateBlog(blog);
+        //保存收藏记录
+        blogCollection.setBlog(blog);
+        collectionDao.save(blogCollection);
+    }
+
+    /**
+     * 根据用户id和博客id查询收藏
+     * @param blogId
+     * @return
+     */
+    @Override
+    public int getCollection(String blogId) {
+        User user = (User) ShiroUtils.getLoginUser();
+        return collectionDao.countByUserIdEqualsAndBlogIdEquals(user.getUserId(),blogId);
+    }
+
 }

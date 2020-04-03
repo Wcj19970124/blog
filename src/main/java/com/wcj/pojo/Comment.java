@@ -1,6 +1,7 @@
 package com.wcj.pojo;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
@@ -19,6 +20,7 @@ public class Comment implements Serializable {
     /**
      * 评论id
      */
+    @Id
     private String id;
 
     /**
@@ -32,9 +34,19 @@ public class Comment implements Serializable {
     private Integer commentUser;
 
     /**
+     * 评价人
+     */
+    private User user;
+
+    /**
      * 评论帖子id
      */
     private String commentBlog;
+
+    /**
+     * 博客
+     */
+    private Blog blog;
 
     /**
      * 点赞数
@@ -47,7 +59,7 @@ public class Comment implements Serializable {
     private String createdTime;
 
     /**
-     * 逻辑删除
+     * 评论标记,存库时不存该字段，查询评论点赞的时候使用该字段
      */
-    private Integer deleted;
+    private Boolean commentFlag = false;
 }
