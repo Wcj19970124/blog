@@ -5,6 +5,7 @@ import com.wcj.pojo.Comment;
 import com.wcj.pojo.CommentGoods;
 import com.wcj.pojo.User;
 import com.wcj.service.CommentService;
+import com.wcj.utils.Page;
 import com.wcj.utils.Result;
 import com.wcj.utils.ShiroUtils;
 import com.wcj.utils.StringUtils;
@@ -95,5 +96,17 @@ public class CommentController {
     public Result<List<Comment>> getCommentGoods(@PathVariable String blogId){
         List<Comment> commentList = commentService.getCommentGoods(blogId);
         return new Result<>(commentList);
+    }
+
+    /**
+     * 分页查询评论列表
+     * @param page
+     * @return
+     */
+    @PostMapping("/list")
+    @ApiOperation("后台分页查询博客列表")
+    public Result<Page<Comment>> getCommentList(@RequestBody Page<Comment> page){
+        page = commentService.getCommentList(page);
+        return new Result<>(page);
     }
 }

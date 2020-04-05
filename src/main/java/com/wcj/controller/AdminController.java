@@ -1,9 +1,11 @@
 package com.wcj.controller;
 
 import com.wcj.enums.ResultEnum;
+import com.wcj.enums.StateEnum;
 import com.wcj.exception.BlogException;
 import com.wcj.pojo.Admin;
 import com.wcj.service.AdminService;
+import com.wcj.token.UsernamePasswordToken;
 import com.wcj.utils.Result;
 import com.wcj.utils.ShiroUtils;
 import com.wcj.utils.StringUtils;
@@ -11,7 +13,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class AdminController {
         }
         //登录
         Subject subject = SecurityUtils.getSubject();
-        AuthenticationToken token = new UsernamePasswordToken(admin.getUsername(), admin.getPassword());
+        AuthenticationToken token = new UsernamePasswordToken(admin.getUsername(), admin.getPassword(), StateEnum.ADMIN.getCode());
         try {
             subject.login(token);
         } catch (Exception e) {

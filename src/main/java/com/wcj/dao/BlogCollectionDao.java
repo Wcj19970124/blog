@@ -29,4 +29,11 @@ public interface BlogCollectionDao extends MongoRepository<BlogCollection,Intege
      * @return
      */
     List<BlogCollection> findAllByUserIdEquals(Integer userId);
+
+    /**
+     * 根据用户id查询用户的博客收藏数
+     * @param userId
+     * @return
+     */
+    int countByUserIdEquals(Integer userId);
 }

@@ -12,15 +12,18 @@ import com.wcj.pojo.CommentGoods;
 import com.wcj.pojo.User;
 import com.wcj.service.CommentService;
 import com.wcj.utils.IdWorker;
+import com.wcj.utils.Page;
 import com.wcj.utils.ShiroUtils;
+import com.wcj.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -135,5 +138,39 @@ public class CommentServiceImpl implements CommentService {
             });
         });
         return commentList;
+    }
+
+    /**
+     * 分页查询评论列表
+     * @param page
+     * @return
+     */
+    @Override
+    public Page<Comment> getCommentList(Page<Comment> page) {
+        Comment comment = new Comment();
+        //创建查询条件blogTitle
+        String blogTitle = (String) page.getParams().get("blogTitle");
+        if(StringUtils.isBlank(blogTitle)){
+            blogTitle = "";
+        }
+        Blog blog = new Blog();
+        blog.setBlogTitle(blogTitle);
+        comment.setBlog(blog);
+        //创建查询条件用户昵称nickname
+        String nickName = (String) page.getParams().get("nickname");
+        if(StringUtils.isBlank(nickName)){
+            nickName = "";
+        }
+        User user = new User();
+        user.setNickname(nickName);
+        comment.setUser(user);
+        //创建分页条件
+        Pageable pageable = PageRequest.of(page.getCurrentPage()-1,page.getPageSize());
+        //查询评论信息
+        org.springframework.data.domain.Page<Comment> p = commentDao.getCommentByBlogTitleAndNickname(comment, pageable);
+        page.setTotalCount((int) p.getTotalElements());
+        page.setTotalPage(p.getTotalPages());
+        page.setList(p.getContent());
+        return page;
     }
 }

@@ -10,6 +10,8 @@ import com.wcj.mapper.UserMapper;
 import com.wcj.pojo.*;
 import com.wcj.service.BlogService;
 import com.wcj.utils.*;
+import com.wcj.vo.BlogPopularStatistic;
+import com.wcj.vo.BlogStatistic;
 import com.wcj.vo.BlogVo;
 import com.wcj.vo.TimeLineVo;
 import io.swagger.annotations.ApiOperation;
@@ -269,6 +271,24 @@ public class BlogServiceImpl implements BlogService {
     public int getCollection(String blogId) {
         User user = (User) ShiroUtils.getLoginUser();
         return collectionDao.countByUserIdEqualsAndBlogIdEquals(user.getUserId(),blogId);
+    }
+
+    /**
+     * 统计每月份发表的博客数
+     * @return
+     */
+    @Override
+    public List<BlogStatistic> getBlogStatistic() {
+        return blogMapper.getBlogStatistic();
+    }
+
+    /**
+     * 统计最受欢迎前五博客
+     * @return
+     */
+    @Override
+    public List<BlogPopularStatistic> getBlogPopularStatistic() {
+        return blogMapper.getBlogPopularStatistic();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.wcj.config;
 
+import com.wcj.filters.LoginFilter;
 import com.wcj.realm.AdminRealm;
 import lombok.Data;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -93,6 +95,9 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(securityManager);
         //注入登录路径
         factoryBean.setLoginUrl(loginUrl);
+        //注入自定义过滤器
+        Map<String, Filter> filters = factoryBean.getFilters();
+        filters.put("authc",new LoginFilter());
         //创建过滤链
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //设置放行路径

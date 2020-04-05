@@ -55,6 +55,34 @@
         </if>
         where user_id=#{userId} and version=#{version}
     </update>
+    <!-- 前台修改个人信息 -->
+    <update id="updateFront">
+        update bl_user
+        <set>
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="sex!=null ">
+                sex=#{sex},
+            </if>
+            <if test="header!=null and header!=''">
+                header=#{header},
+            </if>
+            <if test="nickname!=null and nickname!=''">
+                nickname=#{nickname},
+            </if>
+            <if test="userEmail!=null and userEmail!=''">
+                user_email=#{userEmail}
+            </if>
+        </set>
+        where user_id=#{userId}
+    </update>
     <!-- 根据id删除用户 -->
     <delete id="deleteUser" parameterType="com.wcj.pojo.User">
         update bl_user set

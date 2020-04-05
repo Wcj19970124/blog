@@ -3,6 +3,7 @@ package com.wcj.service;
 
 import com.wcj.pojo.Comment;
 import com.wcj.pojo.CommentGoods;
+import com.wcj.utils.Page;
 
 import java.util.List;
 
@@ -47,4 +48,11 @@ public interface CommentService {
      * @return
      */
     List<Comment> getCommentGoods(String blogId);
+
+    /**
+     * 分页查询评论列表
+     * @param page
+     * @return
+     */
+    Page<Comment> getCommentList(Page<Comment> page);
 }

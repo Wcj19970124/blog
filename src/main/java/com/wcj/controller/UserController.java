@@ -1,10 +1,12 @@
 package com.wcj.controller;
 
 import com.wcj.enums.ResultEnum;
+import com.wcj.enums.StateEnum;
 import com.wcj.pojo.Blog;
 import com.wcj.pojo.Comment;
 import com.wcj.pojo.User;
 import com.wcj.service.UserService;
+import com.wcj.token.UsernamePasswordToken;
 import com.wcj.utils.Page;
 import com.wcj.utils.Result;
 import com.wcj.utils.ShiroUtils;
@@ -13,7 +15,6 @@ import com.wcj.vo.BlogVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,7 @@ public class UserController {
     }
 
     /**
-     * 修改用户
+     * 后台修改用户
      *
      * @param user
      * @return
@@ -57,6 +58,19 @@ public class UserController {
     @ApiOperation("修改用户")
     public Result<Object> updateUser(@RequestBody User user) {
         userService.updateUser(user);
+        return new Result<>("修改成功!");
+    }
+
+    /**
+     * 前台修改个人信息,无乐观锁
+     *
+     * @param user
+     * @return
+     */
+    @PutMapping("/updateFront")
+    @ApiOperation("前台修改个人信息")
+    public Result<Object> updateFront(@RequestBody User user) {
+        userService.updateFront(user);
         return new Result<>("修改成功!");
     }
 
@@ -147,7 +161,7 @@ public class UserController {
         }
         //登录
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword(), StateEnum.USER.getCode());
         try{
             subject.login(token);
         }catch (Exception e){
@@ -185,5 +199,17 @@ public class UserController {
     public Result<Page<Comment>> getComment(@RequestBody Page<Comment> page){
         page = userService.getComment(page);
         return new Result<>(page);
+    }
+
+    /**
+     * 根据用户id查询用户的收藏数和评论数
+     *
+     * @return
+     */
+    @GetMapping("/getCommentAndCollection")
+    @ApiOperation("获取用户的收藏数和评论数")
+    public Result<Map<String, Integer>> getCommentAndCollection() {
+        Map<String, Integer> map = userService.getCommentAndCollection();
+        return new Result<>(map);
     }
 }

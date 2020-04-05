@@ -35,7 +35,14 @@
         <result column="blog_month" property="blogMonth"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
-
+    <resultMap id="BlogStatistic" type="com.wcj.vo.BlogStatistic">
+        <result column="month" property="month"/>
+        <result column="blogNumber" property="blogNumber"/>
+    </resultMap>
+    <resultMap id="BlogPopularStatistic" type="com.wcj.vo.BlogPopularStatistic">
+        <result column="blogTitle" property="blogTitle"/>
+        <result column="count" property="count"/>
+    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         blog_id, blog_title,blog_image, blog_content, blog_goods,
@@ -155,6 +162,17 @@
         DATE_FORMAT(created_time,'%Y-%m') as blog_month
         from bl_blog
         order by created_time desc
+    </select>
+    <!-- 统计每月份发表博客数 -->
+    <select id="getBlogStatistic" resultMap="BlogStatistic" parameterType="com.wcj.vo.BlogVo">
+        select  DATE_FORMAT(created_time,'%m') as month,count(blog_id) as blogNumber
+        from bl_blog
+		GROUP BY month
+    </select>
+    <!-- 统计最受欢迎前五博客 -->
+    <select id="getBlogPopularStatistic" resultMap="BlogPopularStatistic" parameterType="com.wcj.vo.BlogVo">
+        select blog_title as blogTitle,(blog_read+blog_goods+blog_comment) as count from bl_blog
+        ORDER BY count desc limit 5
     </select>
 
 </mapper>

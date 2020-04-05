@@ -4,6 +4,8 @@ import com.wcj.pojo.Blog;
 import com.wcj.pojo.BlogCollection;
 import com.wcj.pojo.Goods;
 import com.wcj.utils.Page;
+import com.wcj.vo.BlogPopularStatistic;
+import com.wcj.vo.BlogStatistic;
 import com.wcj.vo.BlogVo;
 import com.wcj.vo.TimeLineVo;
 
@@ -92,4 +94,16 @@ public interface BlogService {
      * @return
      */
     int getCollection(String blogId);
+
+    /**
+     * 统计每月的发表博客数
+     * @return
+     */
+    List<BlogStatistic> getBlogStatistic();
+
+    /**
+     * 统计最受欢迎前五博客
+     * @return
+     */
+    List<BlogPopularStatistic> getBlogPopularStatistic();
 }

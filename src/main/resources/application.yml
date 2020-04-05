@@ -105,6 +105,7 @@ shiro:
     - /type/listFront
     - /about/read
     - /comment/getComment/**
+    - /rotation-picture/listFront
 
 
 

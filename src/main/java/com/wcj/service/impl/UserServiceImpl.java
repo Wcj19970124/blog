@@ -22,7 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wcj
@@ -209,12 +211,36 @@ public class UserServiceImpl implements UserService {
         //封装page
         page.setTotalPage(comments.getTotalPages());
         page.setTotalCount((int) comments.getTotalElements());
-        List<Comment>commentList = new ArrayList<>();
-        comments.forEach(e->{
-            commentList.add(e);
-        });
-        page.setList(commentList);
+        page.setList(comments.getContent());
         return page;
+    }
+
+    /**
+     * 前台修改个人信息
+     * @param user
+     */
+    @Override
+    public void updateFront(User user) {
+        if(user.getPassword()!=null){
+            //加密密码
+            user.setPassword(Md5.toMd5(user));
+        }
+        userMapper.updateFront(user);
+    }
+
+    /**
+     * 根据用户id查询用户的收藏数和评论数
+     * @return
+     */
+    @Override
+    public Map<String, Integer> getCommentAndCollection() {
+        User user = (User) ShiroUtils.getLoginUser();
+        int commentCount = commentDao.countByCommentUserEquals(user.getUserId());
+        int collectionCount = collectionDao.countByUserIdEquals(user.getUserId());
+        Map<String,Integer> map = new HashMap<>(4);
+        map.put("comment",commentCount);
+        map.put("collection",collectionCount);
+        return map;
     }
 
 }

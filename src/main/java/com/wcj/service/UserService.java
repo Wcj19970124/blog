@@ -6,6 +6,7 @@ import com.wcj.utils.Page;
 import com.wcj.vo.BlogVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wcj
@@ -83,4 +84,16 @@ public interface UserService {
      * @return
      */
     Page<Comment> getComment(Page<Comment> page);
+
+    /**
+     * 前台修改个人信息
+     * @param user
+     */
+    void updateFront(User user);
+
+    /**
+     * 根据用户id查询用户的收藏数和评论数
+     * @return
+     */
+    Map<String, Integer> getCommentAndCollection();
 }

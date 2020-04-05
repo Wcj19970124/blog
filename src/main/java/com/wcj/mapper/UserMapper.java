@@ -72,4 +72,9 @@ public interface UserMapper {
     User getUserByUserName(String username);
 
 
+    /**
+     * 前台修改个人信息
+     * @param user
+     */
+    void updateFront(User user);
 }

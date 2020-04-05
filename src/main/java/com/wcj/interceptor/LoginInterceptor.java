@@ -22,6 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     private static String[] whiteList = {
             "/admin/login", "/user/login","/link/list", "/music/listFront", "/blog/read", "/admin/getInfo", "/type/listFront"
             ,"/about/read","/blog/recommendRead","/blog/list","/blog/getTimeLine","/user/register","/comment/getComment"
+            ,"/rotation-picture/listFront"
     };
 
     /**

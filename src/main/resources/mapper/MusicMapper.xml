@@ -125,6 +125,7 @@
     <!-- 前台查询音乐列表 -->
     <select id="getList" resultMap="BaseResultMap">
         select
+        id,
         name,
         artist,
         url,
@@ -133,5 +134,4 @@
         from bl_music
         where enabled = 1 and deleted = 0
     </select>
-
 </mapper>

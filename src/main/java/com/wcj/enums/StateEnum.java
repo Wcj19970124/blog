@@ -33,7 +33,13 @@ public enum StateEnum {
      * 请求状态码
      */
     STATUS_SUCCESS(1,"正常"),
-    STATUS_ERROR(0,"异常");
+    STATUS_ERROR(0,"异常"),
+
+    /**
+     * 用户身份标识字段
+     */
+    ADMIN(0,"后台管理员"),
+    USER(1,"前台用户");
 
     /**
      * 状态码

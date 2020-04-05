@@ -2,6 +2,8 @@ package com.wcj.mapper;
 
 import com.wcj.pojo.Blog;
 import com.wcj.utils.Page;
+import com.wcj.vo.BlogPopularStatistic;
+import com.wcj.vo.BlogStatistic;
 import com.wcj.vo.BlogVo;
 import org.springframework.stereotype.Component;
 
@@ -68,4 +70,16 @@ public interface BlogMapper {
      * @return
      */
     List<BlogVo> getBlogVoList();
+
+    /**
+     * 统计每月份发表的博客数
+     * @return
+     */
+    List<BlogStatistic> getBlogStatistic();
+
+    /**
+     * 统计最受欢迎前五博客
+     * @return
+     */
+    List<BlogPopularStatistic> getBlogPopularStatistic();
 }

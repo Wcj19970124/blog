@@ -1,18 +1,21 @@
 package com.wcj.realm;
 
 import com.wcj.enums.ResultEnum;
+import com.wcj.enums.StateEnum;
 import com.wcj.exception.BlogException;
 import com.wcj.pojo.Admin;
 import com.wcj.pojo.User;
 import com.wcj.service.AdminService;
 import com.wcj.service.UserService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import com.wcj.token.UsernamePasswordToken;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,8 +47,8 @@ public class AdminRealm extends AuthorizingRealm {
 
         //获取用户身份--是后台管理员--还是前台用户
         //分别进行验证
-        Subject subject = SecurityUtils.getSubject();
-        if (subject.getPrincipal() instanceof Admin) {
+        Integer state = usernamePasswordToken.getState();
+        if (state.equals(StateEnum.ADMIN.getCode())) {
             Admin admin = adminService.getAdminByUserName(userName);
             if (admin == null) {
                 throw new BlogException(ResultEnum.ERROR.getCode(), "用户不存在！");

@@ -10,6 +10,8 @@ import com.wcj.utils.Page;
 import com.wcj.utils.Result;
 import com.wcj.utils.ShiroUtils;
 import com.wcj.utils.StringUtils;
+import com.wcj.vo.BlogPopularStatistic;
+import com.wcj.vo.BlogStatistic;
 import com.wcj.vo.BlogVo;
 import com.wcj.vo.TimeLineVo;
 import io.swagger.annotations.Api;
@@ -203,5 +205,29 @@ public class BlogController {
     public Result<Integer> getCollection(@PathVariable String blogId){
         int count = blogService.getCollection(blogId);
         return new Result<>(count);
+    }
+
+    /**
+     * 统计每月份博客的发表数
+     *
+     * @return
+     */
+    @GetMapping("/blog-statistic")
+    @ApiOperation("统计每个月份博客的发表数")
+    public Result<List<BlogStatistic>> getBlogStatistic() {
+        List<BlogStatistic> blogStatisticList = blogService.getBlogStatistic();
+        return new Result<>(blogStatisticList);
+    }
+
+    /**
+     * 统计最受欢迎前五博客
+     *
+     * @return
+     */
+    @GetMapping("/popular-statistic")
+    @ApiOperation("统计阅读量前五的博客")
+    public Result<List<BlogPopularStatistic>> getBlogPopularStatistic() {
+        List<BlogPopularStatistic> blogPopularStatistics = blogService.getBlogPopularStatistic();
+        return new Result<>(blogPopularStatistics);
     }
 }
