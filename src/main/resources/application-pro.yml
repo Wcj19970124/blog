@@ -100,10 +100,13 @@ shiro:
     - /blog/read/**
     - /blog/recommendRead
     - /blog/getTimeLine
+    - /blog/getGoods/**
+    - /blog/getCollection/**
     - /admin/getInfo
     - /type/listFront
     - /about/read
     - /comment/getComment/**
+    - /comment/getCommentGoods/**
     - /rotation-picture/listFront
 
 
