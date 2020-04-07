@@ -62,6 +62,12 @@ public class BlogServiceImpl implements BlogService {
      */
     @Override
     public void addBlog(Blog blog) {
+        //先根据博客类别查询出类别信息
+        //将博客对应类别博客数加1
+        Type type = typeMapper.getType(blog.getBlogType());
+        type.setTypeBlogCount(type.getTypeBlogCount()+1);
+        typeMapper.updateType(type);
+        //保存博客
         blog.setBlogId(idWorker.nextId() + "");
         blogMapper.addBlog(blog);
     }

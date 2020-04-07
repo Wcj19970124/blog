@@ -1,10 +1,8 @@
 package com.wcj.utils;
 
-import com.sun.javafx.embed.EmbeddedSceneDSInterface;
 import com.wcj.pojo.Admin;
 import com.wcj.pojo.User;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import sun.security.provider.MD4;
 
 /**
  * 加密明文密码
