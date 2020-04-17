@@ -82,4 +82,10 @@ public interface BlogMapper {
      * @return
      */
     List<BlogPopularStatistic> getBlogPopularStatistic();
+
+    /**
+     * 获取前台博客展示博客总数
+     * @return
+     */
+    Integer getTotal();
 }

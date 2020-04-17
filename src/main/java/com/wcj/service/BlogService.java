@@ -106,4 +106,10 @@ public interface BlogService {
      * @return
      */
     List<BlogPopularStatistic> getBlogPopularStatistic();
+
+    /**
+     * 获取前台展示博客总数
+     * @return
+     */
+    Integer getTotal();
 }

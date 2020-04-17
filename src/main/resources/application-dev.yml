@@ -10,7 +10,7 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
       username: root
       password: 520wcj
       #初始化连接大小
@@ -51,6 +51,9 @@ spring:
     mongodb:
       host: 121.199.34.159
       database: blog
+  #配置时区
+  jackson:
+    time-zone: GMT+8
 
 #fastdfs配置
 fdfs:

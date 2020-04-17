@@ -174,5 +174,8 @@
         select blog_title as blogTitle,(blog_read+blog_goods+blog_comment) as count from bl_blog
         ORDER BY count desc limit 5
     </select>
+    <select id="getTotal" resultType="java.lang.Integer">
+        select count(blog_id) from bl_blog where deleted=0
+    </select>
 
 </mapper>

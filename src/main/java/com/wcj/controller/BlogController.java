@@ -230,4 +230,15 @@ public class BlogController {
         List<BlogPopularStatistic> blogPopularStatistics = blogService.getBlogPopularStatistic();
         return new Result<>(blogPopularStatistics);
     }
+
+    /**
+     * 获取前台展示博客总数
+     * @return
+     */
+    @GetMapping("/getTotal")
+    @ApiOperation("获取博客总数")
+    public Result<Integer> getTotal(){
+        Integer total = blogService.getTotal();
+        return new Result<>(total);
+    }
 }

@@ -297,4 +297,13 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.getBlogPopularStatistic();
     }
 
+    /**
+     * 获取前台展示博客总数
+     * @return
+     */
+    @Override
+    public Integer getTotal() {
+        return blogMapper.getTotal();
+    }
+
 }

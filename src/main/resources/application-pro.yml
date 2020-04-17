@@ -51,7 +51,6 @@ spring:
     mongodb:
       host: 121.199.34.159
       database: blog
-
 #fastdfs配置
 fdfs:
   #读取时间
@@ -102,6 +101,7 @@ shiro:
     - /blog/getTimeLine
     - /blog/getGoods/**
     - /blog/getCollection/**
+    - /blog/getTotal
     - /admin/getInfo
     - /type/listFront
     - /about/read
