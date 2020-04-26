@@ -1,13 +1,17 @@
 package com.wcj.controller;
 
+import com.wcj.enums.ResultEnum;
 import com.wcj.pojo.Type;
 import com.wcj.service.TypeService;
+import com.wcj.utils.Page;
 import com.wcj.utils.Result;
+import com.wcj.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,11 +46,19 @@ public class TypeController {
      *
      * @return
      */
-    @GetMapping("/listBack")
+    @PostMapping("/listBack")
     @ApiOperation(value = "后台查询分类列表")
-    public Result<List<Type>> getTypeList() {
-        List<Type> typeList = typeService.getTypeList();
-        return new Result<>(typeList);
+    public Result<Page<Type>> getTypeList(@RequestBody Page<Type> page) {
+        String sortColumn = page.getSortColumn();
+        if (StringUtils.isNotBlank(sortColumn)) {
+            String[] sortColumns = {"type_blogCount"};
+            List<String> list = Arrays.asList(sortColumns);
+            if (!list.contains(sortColumn.toLowerCase())) {
+                return new Result<>(ResultEnum.PARAMS_ERROR.getCode(), "排序参数不合法!");
+            }
+        }
+        page = typeService.getTypeList(page);
+        return new Result<>(page);
     }
 
     /**

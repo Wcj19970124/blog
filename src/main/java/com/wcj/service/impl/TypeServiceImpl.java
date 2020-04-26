@@ -1,12 +1,11 @@
 package com.wcj.service.impl;
 
-import com.wcj.enums.ResultEnum;
 import com.wcj.enums.StateEnum;
 import com.wcj.exception.BlogException;
 import com.wcj.mapper.TypeMapper;
 import com.wcj.pojo.Type;
 import com.wcj.service.TypeService;
-import com.wcj.utils.Result;
+import com.wcj.utils.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,10 +44,18 @@ public class TypeServiceImpl implements TypeService {
      * 后台查询分类列表
      *
      * @return
+     * @param page
      */
     @Override
-    public List<Type> getTypeList() {
-        return typeMapper.getTypeList();
+    public Page<Type> getTypeList(Page<Type> page) {
+
+        //查询分类列表
+        List<Type> typeList = typeMapper.getTypeList(page);
+        page.setList(typeList);
+        //查询总条数
+        int totalCount = typeMapper.getCountByPage(page);
+        page.setTotalCount(totalCount);
+        return page;
     }
 
     /**

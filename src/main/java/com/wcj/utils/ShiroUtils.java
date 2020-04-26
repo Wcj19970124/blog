@@ -32,11 +32,7 @@ public class ShiroUtils {
         if (principalCollection == null) {
             return null;
         }
-        if(principalCollection.getPrimaryPrincipal() instanceof Admin){
-            return (Admin) principalCollection.getPrimaryPrincipal();
-        }else{
-            return (User)principalCollection.getPrimaryPrincipal();
-        }
+        return principalCollection.getPrimaryPrincipal();
 
     }
 

@@ -1,7 +1,7 @@
 package com.wcj.service;
 
 import com.wcj.pojo.Type;
-import com.wcj.utils.Result;
+import com.wcj.utils.Page;
 
 import java.util.List;
 
@@ -23,8 +23,9 @@ public interface TypeService {
      * 后台查询分类列表
      *
      * @return
+     * @param page
      */
-    List<Type> getTypeList();
+    Page<Type> getTypeList(Page<Type> page);
 
     /**
      * 前台查询分类列表

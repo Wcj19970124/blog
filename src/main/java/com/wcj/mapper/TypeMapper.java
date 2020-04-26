@@ -1,9 +1,7 @@
 package com.wcj.mapper;
 
 import com.wcj.pojo.Type;
-import com.wcj.utils.Result;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import com.wcj.utils.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -39,8 +37,9 @@ public interface TypeMapper {
      * 后端查询分类列表
      *
      * @return
+     * @param page
      */
-    List<Type> getTypeList();
+    List<Type> getTypeList(Page<Type> page);
 
     /**
      * 前台查询分类列表
@@ -70,4 +69,11 @@ public interface TypeMapper {
      * @param id
      */
     void deleteType(Integer id);
+
+    /**
+     * 根据分页信息查询分类总条数
+     * @param page
+     * @return
+     */
+    int getCountByPage(Page<Type> page);
 }

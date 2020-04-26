@@ -43,8 +43,14 @@
         select type_id, type_name, type_blog_count from bl_type where type_name=#{typeName} and deleted=0
     </select>
     <!-- 后台查询分类列表 -->
-    <select id="getTypeList" resultMap="BaseResultMap">
-        select * from bl_type where deleted=0
+    <select id="getTypeList" resultMap="BaseResultMap" parameterType="com.wcj.utils.Page">
+        select type_id, type_name, type_blog_count, enable
+        from bl_type
+        where deleted=0
+        <if test="sortColumn!=null and sortColumn!=''">
+            order by ${sortColumn} ${sortMethod}
+        </if>+
+        limit #{index} ,#{pageSize}
     </select>
     <!-- 前台查询分类列表 -->
     <select id="getTypeLists" resultMap="BaseResultMap">
@@ -53,6 +59,10 @@
     <!-- 根据id查询分类 -->
     <select id="getType" resultMap="BaseResultMap">
         select * from bl_type where type_id=#{id} and deleted=0
+    </select>
+    <!-- 查询分页的数据总条数 -->
+    <select id="getCountByPage" resultType="java.lang.Integer">
+        select count(*) from bl_type where deleted=0
     </select>
 
 </mapper>
