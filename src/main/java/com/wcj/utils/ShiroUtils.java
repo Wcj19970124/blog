@@ -1,7 +1,5 @@
 package com.wcj.utils;
 
-import com.wcj.pojo.Admin;
-import com.wcj.pojo.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;

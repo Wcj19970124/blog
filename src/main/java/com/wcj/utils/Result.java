@@ -6,6 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * 通用返回对象
  * @author wcj
  * @Date 2020/3/23 13:26
  * @Version 1.0

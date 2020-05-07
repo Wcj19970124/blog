@@ -67,10 +67,10 @@ fdfs:
     height: 100
   #tracker地址
   tracker-list:
-    - 121.199.34.159:22122
+    - 106.52.198.68:22122
 upload:
   #上传的基础路径
-  base-url: http://121.199.34.159/
+  base-url: http://106.52.198.68/
   #允许上传文件类型
   allow-types:
     - image/jpeg

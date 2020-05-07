@@ -1,16 +1,9 @@
-#服务器端口配置
-server:
-  port: 1000
-#mybatis配置
-mybatis:
-  mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.wcj.pojo
 #数据源配置
 spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://121.199.34.159:3306/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://172.16.247.164:3306/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
       username: root
       password: 520wcj
       #初始化连接大小
@@ -49,7 +42,7 @@ spring:
   #配置mongodb
   data:
     mongodb:
-      host: 121.199.34.159
+      host: 172.16.247.164
       database: blog
 #fastdfs配置
 fdfs:
@@ -63,10 +56,10 @@ fdfs:
     height: 100
   #tracker地址
   tracker-list:
-    - 121.199.34.159:22122
+    - 106.52.198.68:22122
 upload:
   #上传的基础路径
-  base-url: http://121.199.34.159/
+  base-url: http://106.52.198.68/
   #允许上传文件类型
   allow-types:
     - image/jpeg

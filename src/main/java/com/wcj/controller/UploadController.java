@@ -1,5 +1,7 @@
 package com.wcj.controller;
 
+import com.wcj.pojo.BlogPicture;
+import com.wcj.service.BlogPictureService;
 import com.wcj.utils.Result;
 import com.wcj.utils.UploadService;
 import io.swagger.annotations.Api;

@@ -8,4 +8,4 @@ mybatis:
 #选择环境
 spring:
   profiles:
-    active: pro
+    active: dev

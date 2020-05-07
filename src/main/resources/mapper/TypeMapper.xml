@@ -49,8 +49,8 @@
         where deleted=0
         <if test="sortColumn!=null and sortColumn!=''">
             order by ${sortColumn} ${sortMethod}
-        </if>+
-        limit #{index} ,#{pageSize}
+        </if>
+        limit #{index},#{pageSize}
     </select>
     <!-- 前台查询分类列表 -->
     <select id="getTypeLists" resultMap="BaseResultMap">
