@@ -114,7 +114,7 @@ public class MusicController {
     }
 
     /**
-     * 根据id启用音乐
+     * 根据id启用音oller乐
      *
      * @param id
      * @return

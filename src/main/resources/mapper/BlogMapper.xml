@@ -164,7 +164,7 @@
         order by created_time desc
     </select>
     <!-- 统计每月份发表博客数 -->
-    <select id="getBlogStatistic" resultMap="BlogStatistic" parameterType="com.wcj.vo.BlogVo">
+    <select id="getBlogStatistic" resultMap="BlogStatistic" parameterType="com.wcj.vo.BlogVo" >
         select  DATE_FORMAT(created_time,'%m') as month,count(blog_id) as blogNumber
         from bl_blog
 		GROUP BY month

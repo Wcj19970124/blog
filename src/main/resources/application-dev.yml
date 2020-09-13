@@ -108,6 +108,7 @@ shiro:
     - /about/read
     - /comment/getComment/**
     - /rotation-picture/listFront
+    - /crawler/getArticleList
 
 
 

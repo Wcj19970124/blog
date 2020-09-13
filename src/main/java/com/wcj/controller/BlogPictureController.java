@@ -51,7 +51,7 @@ public class BlogPictureController {
      */
     @PostMapping("/list")
     @ApiOperation("分页查询博客图片列表")
-    public Result<Page<BlogPicture>> getBlogPictureList(Page<BlogPicture> page){
+    public Result<Page<BlogPicture>> getBlogPictureList(@RequestBody Page<BlogPicture> page){
         page = blogPictureService.getBlogPictureList(page);
         return new Result<>(page);
     }
